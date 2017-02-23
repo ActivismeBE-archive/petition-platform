@@ -34,7 +34,7 @@ class Authencate extends Model
      */
     public function permissions()
     {
-        return $this->belongsToMany('Permissions', 'login_permissions', 'login_id', 'permissions_id')
+        return $this->belongsToMany('Permissions', 'login_permissions', 'login_id', 'permission_id')
             ->withTimestamps();
     }
 
