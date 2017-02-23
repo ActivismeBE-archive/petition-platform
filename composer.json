@@ -13,7 +13,8 @@
 	"require": {
 		"php": ">=5.2.4",
         "illuminate/database": "5.4.*",
-        "illuminate/events": "5.4.*"
+        "illuminate/events": "5.4.*",
+		"symfony/var-dumper": "^3.2"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"
@@ -21,6 +22,9 @@
 	"require-dev": {
 		"mikey179/vfsStream": "1.1.*"
 	},
+    "config": {
+        "vendor-dir": "vendor"
+    },
     "autoload": {
         "classmap": [
             "application/core",
