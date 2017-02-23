@@ -101,6 +101,52 @@ class Auth extends CI_Controller
 	}
 
     /**
+     * View for creating a new user.
+     *
+     * @see:url('GET|HEAD', 'http://www.petities.activisme.be/auth/register')
+     * @return blade view.
+     */
+    public function register()
+    {
+
+    }
+
+    /**
+     * Store the new user in the database.
+     *
+     * @see:url('POST', 'http://www.petities.activisme.be/auth/store')
+     * @return redirect
+     */
+    public function store()
+    {
+        $this->form_validation->set_rules('username', 'username', 'trim|required');
+        $this->form_validation->set_rules('name', 'name', 'trim|required');
+        $this->form_validation->set_rules('password', 'password', 'trim|required');
+        $this->form_validation->set_rules('email', 'password', 'trim|required');
+
+        if ($this->form_validation->run() == false) {
+            $data['title'] = 'Registratie';
+
+            return $this->blade->render('', $data);
+        }
+
+        // No errors so move on with the logic.
+        $input['username'] = $this->input->post('username');
+        $input['name']     = $this->input->post('name');
+        $input['password'] = md5($this->input->post('password'));
+        $input['email']    = $this->input->post('email');
+        $input['blocked']  = 'N';
+        $input['ban_id']   = 0;
+
+        if (Authencate::create($this->security->xss_clean($input))) {
+            $this->session->set_flashdata('class', 'alert alert-success');
+            $this->session->set_flashdata('message', 'Uw account is aangemaakt');
+        }
+
+        return redirect($_SERVER['HTTP_REFERER']);
+    }
+
+    /**
      * Log the user out in the system.
      *
      * @see:url('GET|HEAD', 'http://www.petities.activisme.be/auth/logout')
