@@ -62,6 +62,7 @@ class Auth extends CI_Controller
         $MySQL['user']  = Authencate::where('email', $input['email'])
             ->with(['permissions', 'abilities'])
             ->where('blocked', 'N')
+            ->where('deleted_at'; '')
             ->where('password', md5($password));
 
         if ($MySQL['user']->count() === 1) { // User is found with the given credentails
@@ -108,7 +109,8 @@ class Auth extends CI_Controller
      */
     public function register()
     {
-
+        $data['title'] = 'Registratie';
+        return $this->blade->render('auth/register', $data);
     }
 
     /**
@@ -127,7 +129,7 @@ class Auth extends CI_Controller
         if ($this->form_validation->run() == false) {
             $data['title'] = 'Registratie';
 
-            return $this->blade->render('', $data);
+            return $this->blade->render('auth/register', $data);
         }
 
         // No errors so move on with the logic.
@@ -138,7 +140,7 @@ class Auth extends CI_Controller
         $input['blocked']  = 'N';
         $input['ban_id']   = 0;
 
-        if (Authencate::create($this->security->xss_clean($input))) {
+        if (Authencate::create($this->security->xss_clean($input))) { // Validation fails.
             $this->session->set_flashdata('class', 'alert alert-success');
             $this->session->set_flashdata('message', 'Uw account is aangemaakt');
         }
