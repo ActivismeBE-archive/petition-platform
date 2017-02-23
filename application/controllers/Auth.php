@@ -23,7 +23,7 @@ class Auth extends MY_Controller
 	public function __construct()
 	{
         parent::__construct();
-        $this->load->library(['session', 'form_validation']);
+        $this->load->library(['session', 'blade', 'form_validation']);
         $this->load->helper(['url']);
 
         $this->user         = $this->session->userdata('user');
@@ -43,8 +43,12 @@ class Auth extends MY_Controller
         $this->form_validation->set_rules('password', 'Wachtwoord', 'trim|required|callback_check_database');
 
         if ($this->form_validation->run() == false) { // Validation fails.
+            $data['title'] = 'Inloggedn';
+
             $this->session->set_flashdata('class', 'alert alert-danger');
-            $this->session->set_flashdata('message', 'Wij konden het authencatie verzoek niet verwerken.');
+            $this->session->set_flashdata('message', 'De gebruikersnaam en het wachtwoord die je hebt ingevoerd komen niet overeen met ons archief. Controleer de gegevens en probeer het opnieuw.');
+
+            return $this->blade->render('auth/login', $data);
         }
 
         return redirect($_SERVER['HTTP_REFERER']);
@@ -62,7 +66,6 @@ class Auth extends MY_Controller
         $MySQL['user']  = Authencate::where('email', $input['email'])
             ->with(['permissions', 'abilities'])
             ->where('blocked', 'N')
-            ->where('deleted_at'; '')
             ->where('password', md5($password));
 
         if ($MySQL['user']->count() === 1) { // User is found with the given credentails
@@ -122,9 +125,10 @@ class Auth extends MY_Controller
     public function store()
     {
         $this->form_validation->set_rules('username', 'username', 'trim|required');
-        $this->form_validation->set_rules('name', 'name', 'trim|required');
+        $this->form_validation->set_rules('name', 'name', 'trim|required|is_unique[users.username]');
         $this->form_validation->set_rules('password', 'password', 'trim|required');
-        $this->form_validation->set_rules('email', 'password', 'trim|required');
+        $this->form_validation->set_rules('email', 'password', 'trim|required|is_unique[users.email]');
+        $this->form_validation->set_rules('password_confirmation', 'Password Confirmation', 'required|matches[password]');
 
         if ($this->form_validation->run() == false) {
             $data['title'] = 'Registratie';

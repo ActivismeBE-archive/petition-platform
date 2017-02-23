@@ -73,6 +73,9 @@ class Manifest extends MY_Controller
      */
 	public function create()
 	{
+        $this->form_validation->set_rules();
+        $this->form_validation->set_rules();
+
         return redirect($_SERVER['HTTP_REFERER']);
 	}
 

@@ -60,7 +60,7 @@ class MY_Controller extends CI_Controller
                 $methods = explode(',', $options[1]);
 
                 if ($type == 'except') {
-                    if (in_array($this->router->method, $methods))) {
+                    if (in_array($this->router->method, $methods)) {
                         $runMiddleware = false;
                     }
                 } elseif ($type == 'only') {
