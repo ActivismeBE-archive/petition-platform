@@ -14,12 +14,48 @@ use Illuminate\Database\Eloquent\Model;
 class Authencate extends Model
 {
     /**
+     * The database table name
      *
+     * @return string
      */
     protected $table = 'users';
 
     /**
+     * Mass-assign entities for the database.
      *
+     * @return array
      */
-    protected $fillable = [];
+    protected $fillable = ['ban_id', 'username', 'name', 'blocked', 'password', 'email'];
+
+    /**
+     * User permissions data relation
+     *
+     * @return BelongsToMany instance
+     */
+    public function permissions()
+    {
+        return $this->belongsToMany('Permissions', 'login_permissions', 'login_id', 'permissions_id')
+            ->withTimestamps();
+    }
+
+    /**
+     * User abilities data relation.
+     *
+     * @return BelongsToMany instance
+     */
+    public function abilities()
+    {
+        return $this->belongsToMany('Abilities', 'login_abilities', 'login_id', 'ability_id')
+            ->withTimeStamps();
+    }
+
+    /**
+     * The ban id for the user.
+     *
+     * @return belongsTo instance.
+     */
+    public function ban()
+    {
+        return $this->belongsTo('Ban', 'ban_id');
+    }
 }

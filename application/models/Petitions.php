@@ -32,6 +32,11 @@ class Petitions extends Model
         return $this->belongsTo('Authencate', 'creator_id');
     }
 
+    public function signatures()
+    {
+        
+    }
+
     public function categories()
     {
 

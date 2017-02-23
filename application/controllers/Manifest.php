@@ -38,9 +38,32 @@ class Manifest extends CI_Controller
      */
 	public function index()
 	{
-        $data['title'] = 'Manifest backend';
+        $data['title']   = 'Manifest backend';
+        $data['recent']  = Petitions::all();
+        $data['popular'] = Petitions::all();
+
         return $this->blade->render('petitions/index', $data);
 	}
+
+    /**
+     * Show a specific petition.
+     *
+     * @see:url('GET|HEAD', 'http://www.petities.activisme.be/manifest/show/{id}')
+     * @return
+     */
+    public function show()
+    {
+        $petitionId       = $this->security->xss_clean($this->uri->segment(3));
+        $data['petition'] = Petitions::find($petitionId);
+
+        if ((int) count($data['petition']) === 0) { // No petition found.
+            $this->session->set_flashdata('class', 'alert alert-danger');
+            $this->session->set_flashdata('message', 'Er is geen petitie gevonden met de id #'. $petitionId);
+        }
+
+        $data['title'] = $data['petition']->title;
+        return $this->blade->render('petitions/show', $data);
+    }
 
     /**
      * Create a new petition in the system.
@@ -54,6 +77,7 @@ class Manifest extends CI_Controller
 	}
 
     /**
+     * Delete a specific petition.
      *
      * @see:url('GET|HEAD', 'http://www.petities.activisme.be/manifest/delete/{id}')
      * @return Redirect
