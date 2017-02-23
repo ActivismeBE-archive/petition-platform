@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Abilities Model.
@@ -13,6 +14,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Abilities extends Model
 {
+    use SoftDeletes;
+    
     /**
      * The database table name.
      *
