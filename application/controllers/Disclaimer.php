@@ -9,7 +9,7 @@
  * @since     2017
  * @package   Petitions
  */
-class Disclaimer extends CI_Controller
+class Disclaimer extends MY_Controller
 {
     public $user        = [];   /** @var array $user         The userdata about the authencated user.  */
     public $permissions = [];   /** @var array $permissions  The authencated user permissions.         */

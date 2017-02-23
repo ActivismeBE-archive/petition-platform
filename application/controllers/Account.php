@@ -9,7 +9,7 @@
  * @since     2017
  * @package   Petitions
  */
-class Account extends CI_Controller
+class Account extends MY_Controller
 {
     public $user        = [];   /** @var array $user         The userdata about the authencated user.  */
     public $permissions = [];   /** @var array $permissions  The authencated user permissions.         */

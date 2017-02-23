@@ -9,7 +9,7 @@
  * @since     2017
  * @package   Petitions
  */
-class Manifest extends CI_Controller
+class Manifest extends MY_Controller
 {
     public $user        = [];   /** @var array $user         The userdata about the authencated user.  */
     public $permissions = [];   /** @var array $permissions  The authencated user permissions.         */
@@ -26,9 +26,9 @@ class Manifest extends CI_Controller
 		$this->load->library(['session', 'form_validation', 'blade']);
 		$this->load->helper(['url']);
 
-		$this->user         = $this->session->userdata('user');
-		$this->permissions  = $this->session->userdata('permissions');
-		$this->abilities    = $this->session->userdata('abilities');
+		$this->user        = $this->session->userdata('user');
+		$this->permissions = $this->session->userdata('permissions');
+		$this->abilities   = $this->session->userdata('abilities');
 	}
 
     /**

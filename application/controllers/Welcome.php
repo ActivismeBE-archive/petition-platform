@@ -9,7 +9,7 @@
  * @since     2017
  * @package   Petitions
  */
-class Welcome extends CI_Controller
+class Welcome extends MY_Controller
 {
     public $user        = [];   /** @var array $user         The userdata about the authencated user.  */
     public $permissions = [];   /** @var array $permissions  The authencated user permissions.         */
@@ -41,7 +41,7 @@ class Welcome extends CI_Controller
 	{
         $data['title']     = 'Petities';
         $data['petitions'] = Petitions::take(4)->get();
-        
+
         return $this->blade->render('home', $data);
 	}
 }
