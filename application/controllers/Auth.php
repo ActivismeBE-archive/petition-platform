@@ -148,11 +148,6 @@ class Auth extends CI_Controller
         return redirect($_SERVER['HTTP_REFERER']);
     }
 
-    public function delete()
-    {
-        
-    }
-
     /**
      * Log the user out in the system.
      *
