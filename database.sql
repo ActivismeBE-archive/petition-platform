@@ -22,7 +22,10 @@ CREATE TABLE IF NOT EXISTS continents (
 	PRIMARY KEY (continent_id),
 	continent_id	INT				AUTO_INCREMENT,
 	continent_code  CHAR(4)			DEFAULT NULL,
-	continent_name	VARCHAR(30)		DEFAULT NULL
+	continent_name	VARCHAR(30)		DEFAULT NULL,
+    updated_at     TIMESTAMP NULL     DEFAULT NULL,
+    created_at     TIMESTAMP NULL     DEFAULT NULL,
+    deleted_at     TIMESTAMP NULL     DEFAULT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -56,7 +59,10 @@ CREATE TABLE IF NOT EXISTS currencies (
 	currency_code	CHAR(3) 		DEFAULT NULL,
 	currency_num	INT(4) 			DEFAULT NULL,
 	currency_digits	INT(4)			DEFAULT NULL,
-	currency_name	VARCHAR(255) 	DEFAULT NULL
+	currency_name	VARCHAR(255) 	DEFAULT NULL,
+    updated_at     TIMESTAMP NULL     DEFAULT NULL,
+    created_at     TIMESTAMP NULL     DEFAULT NULL,
+    deleted_at     TIMESTAMP NULL     DEFAULT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -274,7 +280,10 @@ CREATE TABLE IF NOT EXISTS countries (
 	continent_id 	INT				DEFAULT NULL,
 	languages 		VARCHAR(100)	DEFAULT NULL,
 	isoAlpha3_num 	CHAR(3) 		DEFAULT NULL,
-	geonameId 		INT(10) 		DEFAULT NULL
+	geonameId 		INT(10) 		DEFAULT NULL,
+    updated_at      TIMESTAMP NULL     DEFAULT NULL,
+    created_at      TIMESTAMP NULL     DEFAULT NULL,
+    deleted_at      TIMESTAMP NULL     DEFAULT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -550,7 +559,10 @@ CREATE TABLE provinces (
 	province_id			INT 		 AUTO_INCREMENT,
 	province_name_nl	VARCHAR(60)  DEFAULT NULL,
 	province_name_fr	VARCHAR(60)  DEFAULT NULL,
-	province_name_de	VARCHAR(60)  DEFAULT NULL
+	province_name_de	VARCHAR(60)  DEFAULT NULL,
+    updated_at     TIMESTAMP NULL     DEFAULT NULL,
+    created_at     TIMESTAMP NULL     DEFAULT NULL,
+    deleted_at     TIMESTAMP NULL     DEFAULT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -589,7 +601,10 @@ CREATE TABLE IF NOT EXISTS cities (
   	city_name     	TEXT,
   	lat_num     	DOUBLE  DEFAULT NULL,
   	lng_num      	DOUBLE  DEFAULT NULL,
-  	province_id 	INT(3)	DEFAULT NULL
+  	province_id 	INT(3)	DEFAULT NULL,
+    updated_at     TIMESTAMP NULL     DEFAULT NULL,
+    created_at     TIMESTAMP NULL     DEFAULT NULL,
+    deleted_at     TIMESTAMP NULL     DEFAULT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

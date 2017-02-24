@@ -39,8 +39,10 @@ class Account extends MY_Controller
      */
     public function index()
     {
-        $data['user']  = Authencate::find($this->user['id']);
-        $data['title'] = $data['user']->name;
+        $data['user']      = Authencate::find($this->user['id']);
+        $data['cities']    = Cities::all();
+        $data['countries'] = Countries::all();
+        $data['title']     = $data['user']->name;
 
         return $this->blade->render('auth/settings', $data);
     }
@@ -48,7 +50,7 @@ class Account extends MY_Controller
     /**
      * Update the account settings.
      *
-     * @see:url('POST', '')
+     * @see:url('POST', 'http://www.petities.activisme.be/account/settings')
      * @return Redirect | Blade view
      */
     public function update()
@@ -57,7 +59,11 @@ class Account extends MY_Controller
             // dump(validation_errors());   // NOTE: Debugging propose only.
             // die();                       // NOTE: Debugging propose only.
 
-            $data['title'] = 'Account configuratie';
+            $data['user']      = Authencate::find($this->user['id']);
+            $data['cities']    = Cities::all();
+            $data['countries'] = Countries::all();
+            $data['title']     = $data['user']->name;
+
             return $this->blade->render('', $data);
         }
 

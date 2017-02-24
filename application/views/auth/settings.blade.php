@@ -87,7 +87,11 @@
 
                                 <div class="col-md-6">
                                     <select name="" class="form-control">
-                                        <option value="">-- Selecteer je stad --</span>
+                                        <option value="">-- Selecteer je stad --</option>
+
+                                        @foreach ($cities as $city)
+                                            <option value="{{ $city->id}}"> {{ $city->postal_code }} - {{ $city->city_name }} </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -100,6 +104,10 @@
                                 <div class="col-md-6">
                                     <select name="" class="form-control">
                                         <option value=""> -- Selecteer je land -- </option>
+
+                                        @foreach ($countries as $country)
+                                            <option value="{{ $country->id }}"> {{ $country->country_name }} </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
