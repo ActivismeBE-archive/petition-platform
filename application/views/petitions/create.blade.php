@@ -25,7 +25,19 @@
                             </label>
 
                             <div class="col-md-8">
-                        
+                                <textarea name="" rows="7" class="form-control" placeholder="Het petitie manifest"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="submit" class="btn btn-sm btn-success">
+                                    <span class="fa fa-check" aria-hidden="true"></span> Aanmaken
+                                </button>
+
+                                <button type="reset" class="btn btn-sm btn-danger">
+                                    <span class="fa fa-close" aria-hidden="true"></span> Reset formulier
+                                </button>
                             </div>
                         </div>
                     </form>

@@ -32,15 +32,20 @@ class Manifest extends MY_Controller
 	}
 
     /**
+     * Display all the petitions in the system. 
      *
      * @see:url('GET|HEAD', 'http://www.petities.activisme.be/manifest')
-     * @return
+     * @return Blade view.
      */
 	public function index()
 	{
-        $data['title']   = 'Manifest backend';
-        $data['recent']  = Petitions::all();
-        $data['popular'] = Petitions::all();
+        $data['title']          = 'Manifest backend';
+        $data['recent']         = Petitions::all();
+        $data['popular']        = Petitions::all();
+
+        if ($this->user) {
+            $data['userPetitions'] = Petitions::where('creator_id', $this->user['id'])->get();
+        }
 
         return $this->blade->render('petitions/index', $data);
 	}
@@ -79,8 +84,20 @@ class Manifest extends MY_Controller
      */
 	public function store()
 	{
-        $this->form_validation->set_rules();
-        $this->form_validation->set_rules();
+        $this->form_validation->set_rules('title', 'Titel', 'trim|required');
+        $this->form_validation->set_rules('description', 'Petitie manifest', 'trim|required');
+
+        if ($this->form_validation->run() === true) { // Validation passes.
+            if (Petitions::create($this->security->xss_clean($input))) { // Data >>> Stored to the database.
+                $this->session->set_flashdata('class', 'alert alert-success');
+                $this->session->set_flashdata('message', 'Wij hebben de petitie aangemaakt');
+            }
+
+            return $this->blade->render('petitions/create');
+        }
+
+        $this->session->set_flashdata('class', 'alert alert-danger');
+        $this->session->set_flahdata('message', 'Wij konden de petitie niet aanmeken');
 
         return redirect($_SERVER['HTTP_REFERER']);
 	}

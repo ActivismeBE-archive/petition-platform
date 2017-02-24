@@ -23,7 +23,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <span class="fa fa-user" aria-hidden="true"></span> {{ $this->user['name'] }} <span class="caret"></span>
+                                <span class="fa fa-user" aria-hidden="true"></span> {{ $this->user['name'] }} ({{ $this->user['username'] }}) <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu">

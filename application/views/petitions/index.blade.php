@@ -14,6 +14,10 @@
                     <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#recent">Recenste petities</a></li>
                         <li><a data-toggle="tab" href="#popular">Populairste petities</a></li>
+
+                        @if ($this->user)
+                            <li><a data-toggle="tab" href="#me">Mijn petities</a></li>
+                        @endif
                     </ul>
 
                     <div style="padding-top: 10px;" class="tab-content">
@@ -43,6 +47,19 @@
                                 </table>
                             @endif
                         </div>
+
+                        @if ($this->user)
+                            <div id="me" class="tab-pane fade in">
+                                @if ((int) count($userPetitions) === 0)
+                                    <div class="alert alert-info" role="alert">
+                                        <strong> <span class="fa fa-info-circle" aria-hidden="true"></span> Info:</strong>
+                                        U hebt nog geen petities aangemaakt. 
+                                    </div>
+                                @else
+
+                                @endif
+                            </div>
+                        @endif
 
                         <div id="popular" class="tab-pane fade in">
                             @if ((int) count($popular) === 0)

@@ -34,7 +34,7 @@ class Account extends MY_Controller
     /**
      * Get the index page for the account configuration console.
      *
-     * @see
+     * @see:url('GET|HEAD', 'http://www.petities.activisme.be/account')
      * @return Blade view.
      */
     public function index()
@@ -48,7 +48,7 @@ class Account extends MY_Controller
     /**
      * Update the account settings.
      *
-     * @see
+     * @see:url('POST', '')
      * @return Redirect | Blade view
      */
     public function update()
