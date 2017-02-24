@@ -32,6 +32,49 @@ class Account extends MY_Controller
     }
 
     /**
+     * Get the index page for the account configuration console.
+     *
+     * @see
+     * @return Blade view.
+     */
+    public function index()
+    {
+        $data['user']  = Authencate::find($this->user['id']);
+        $data['title'] = $data['user']->name;
+
+        return $this->blade->render('auth/settings', $data);
+    }
+
+    /**
+     * Update the account settings.
+     *
+     * @see
+     * @return Redirect | Blade view
+     */
+    public function update()
+    {
+        if ($this->form_validation->run() === false) {
+            // dump(validation_errors());   // NOTE: Debugging propose only.
+            // die();                       // NOTE: Debugging propose only.
+
+            $data['title'] = 'Account configuratie';
+            return $this->blade->render('', $data);
+        }
+
+        // No validation errors found. So move on with the logic.
+        $data['birth_date']     = $this->input->post('birth_date');
+        $data['birth_place']    = $this->input->post('birth_place');
+        $data['resident_city']  = $this->input->post('resident_city');
+
+        if (Authencate::find($this->usser['id'])->update($this->security->xss_clean($input))) {
+            $this->session->set_flashdata('class', 'alert alert-success');
+            $this->session->set_flashdata('message', 'Uw instelling zijn gewijzigd.');
+        }
+
+        return redirect($_SERVER['HTTP_REFERER']);
+    }
+
+    /**
      * Delete some account out the system.
      *
      * @see:url('GET|HEAD', 'http://www.petities.activisme.be/account/delete/{id}')
