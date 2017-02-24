@@ -32,7 +32,7 @@ class Manifest extends MY_Controller
 	}
 
     /**
-     * Display all the petitions in the system. 
+     * Display all the petitions in the system.
      *
      * @see:url('GET|HEAD', 'http://www.petities.activisme.be/manifest')
      * @return Blade view.
@@ -72,7 +72,9 @@ class Manifest extends MY_Controller
 
     public function create()
     {
-        $data['title'] = 'Nieuwe petitie';
+        $data['title']      = 'Nieuwe petitie';
+        $data['categories'] = Category::where('category_module', 'petition')->get();
+
         return $this->blade->render('petitions/create', $data);
     }
 
@@ -86,8 +88,14 @@ class Manifest extends MY_Controller
 	{
         $this->form_validation->set_rules('title', 'Titel', 'trim|required');
         $this->form_validation->set_rules('description', 'Petitie manifest', 'trim|required');
+        $this->form_validation->set_rules('category', 'Categorie', 'trim|required');
 
         if ($this->form_validation->run() === true) { // Validation passes.
+            $data['title']       = $this->input->post('title');
+            $data['description'] = $this->input->post('description');
+            $data['category_id'] = $this->input->post('category');
+            $data['creator_id']  = $this->user['id'];
+
             if (Petitions::create($this->security->xss_clean($input))) { // Data >>> Stored to the database.
                 $this->session->set_flashdata('class', 'alert alert-success');
                 $this->session->set_flashdata('message', 'Wij hebben de petitie aangemaakt');
@@ -97,7 +105,7 @@ class Manifest extends MY_Controller
         }
 
         $this->session->set_flashdata('class', 'alert alert-danger');
-        $this->session->set_flahdata('message', 'Wij konden de petitie niet aanmeken');
+        $this->session->set_flashdata('message', 'Wij konden de petitie niet aanmeken');
 
         return redirect($_SERVER['HTTP_REFERER']);
 	}

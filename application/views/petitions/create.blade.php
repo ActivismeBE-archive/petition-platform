@@ -15,7 +15,23 @@
                             </label>
 
                             <div class="col-md-5">
-                                <input type="text" name="" value=""class="form-control"  placeholder="Petitie titel">
+                                <input type="text" name="title" value=""class="form-control"  placeholder="Petitie titel">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="category" class="control-label col-sm-2">
+                                Categorie: <span class="text-danger">*</span>
+                            </label>
+
+                            <div class="col-md-5">
+                                <select class="form-control" name="category">
+                                    <option value=""> -- selecteer categorie -- </option>
+
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}"> {{ $category->category_name }} </option> 
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 
@@ -25,7 +41,7 @@
                             </label>
 
                             <div class="col-md-8">
-                                <textarea name="" rows="7" class="form-control" placeholder="Het petitie manifest"></textarea>
+                                <textarea name="description" rows="7" class="form-control" placeholder="Het petitie manifest"></textarea>
                             </div>
                         </div>
 

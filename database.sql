@@ -15,6 +15,38 @@
 /*!40101 SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES = @@SQL_NOTES, SQL_NOTES = 0 */;
 
+DROP TABLE IF EXISTS categories;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE IF NOT EXISTS categories (
+	PRIMARY KEY (id),
+	id	                    INT				   AUTO_INCREMENT,
+    category_module         VARCHAR(60)        DEFAULT NULL,
+    category_name           VARCHAR(255)       DEFAULT NULL,
+    category_description    TEXT               DEFAULT NULL,
+    updated_at              TIMESTAMP NULL     DEFAULT NULL,
+    created_at              TIMESTAMP NULL     DEFAULT NULL,
+    deleted_at              TIMESTAMP NULL     DEFAULT NULL
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table categories
+--
+
+LOCK TABLES categories WRITE;
+/*!40000 ALTER TABLE `categories` DISABLE KEYS */;
+
+INSERT INTO categories (category_module, category_name, category_description)
+	 VALUES ('petition', 'Sociale welzijn', 'Petities omtrent de sociale welzijn.'),
+            ('petition', 'Dierenwelzijn', 'Petities omtrent dieren welzijn'),
+            ('petition', 'Asiel & migratie', 'Petities omtrent asiel en migratie');
+
+/*!40000 ALTER TABLE `categories` ENABLE KEYS */;
+UNLOCK TABLES;
+
+-- -------------------------------------------------------------------
+
 DROP TABLE IF EXISTS continents;
 /*!40101 SET @saved_cs_client = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
