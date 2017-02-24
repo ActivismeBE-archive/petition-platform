@@ -29,7 +29,7 @@
                                     <option value=""> -- selecteer categorie -- </option>
 
                                     @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}"> {{ $category->category_name }} </option> 
+                                        <option value="{{ $category->id }}"> {{ $category->category_name }} </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -52,7 +52,7 @@
                                 </button>
 
                                 <button type="reset" class="btn btn-sm btn-danger">
-                                    <span class="fa fa-close" aria-hidden="true"></span> Reset formulier
+                                    <span class="fa fa-undo" aria-hidden="true"></span> Reset formulier
                                 </button>
                             </div>
                         </div>

@@ -52,8 +52,11 @@
                             <div id="me" class="tab-pane fade in">
                                 @if ((int) count($userPetitions) === 0)
                                     <div class="alert alert-info" role="alert">
-                                        <strong> <span class="fa fa-info-circle" aria-hidden="true"></span> Info:</strong>
-                                        U hebt nog geen petities aangemaakt. 
+                                        <strong> <span class="fa fa-info-circle" aria-hidden="true"></span> Info:</strong> U hebt nog geen petities aangemaakt.
+
+                                        <a href="{{ base_url('manifest/create') }}" class="pull-right btn btn-xs btn-default">
+                                            <span class="fa fa-plus" aria-hidden="true"></span> Maak een petitie.
+                                        </a>
                                     </div>
                                 @else
 
