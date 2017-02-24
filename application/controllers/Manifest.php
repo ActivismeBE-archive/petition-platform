@@ -91,10 +91,10 @@ class Manifest extends MY_Controller
         $this->form_validation->set_rules('category', 'Categorie', 'trim|required');
 
         if ($this->form_validation->run() === true) { // Validation passes.
-            $data['title']       = $this->input->post('title');
-            $data['description'] = $this->input->post('description');
-            $data['category_id'] = $this->input->post('category');
-            $data['creator_id']  = $this->user['id'];
+            $input['title']       = $this->input->post('title');
+            $input['description'] = $this->input->post('description');
+            $input['category_id'] = $this->input->post('category');
+            $input['creator_id']  = $this->user['id'];
 
             if (Petitions::create($this->security->xss_clean($input))) { // Data >>> Stored to the database.
                 $this->session->set_flashdata('class', 'alert alert-success');
