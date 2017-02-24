@@ -15,6 +15,7 @@
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="{{ base_url('manifest') }}"><span class="fa fa-file-text-o" aria-hidden="true"></span> Petities</a></li>
+                    <li><a href="{{ base_url('manifest/create') }}"><span class="fa fa-plus"></span> Nieuwe petitie</a></li>
                     <li><a href="{{ base_url('disclaimer') }}"> <span class="fa fa-info-circle" aria-hidden="true"></span> Disclaimer</a></li>
                 </ul>
 

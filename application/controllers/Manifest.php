@@ -65,13 +65,19 @@ class Manifest extends MY_Controller
         return $this->blade->render('petitions/show', $data);
     }
 
+    public function create()
+    {
+        $data['title'] = 'Nieuwe petitie';
+        return $this->blade->render('petitions/create', $data);
+    }
+
     /**
      * Create a new petition in the system.
      *
      * @see:url('POST', 'http://www.petities.activisme.be/manifest/create')
      * @return
      */
-	public function create()
+	public function store()
 	{
         $this->form_validation->set_rules();
         $this->form_validation->set_rules();

@@ -25,7 +25,6 @@
 
         {{-- Content --}}
             <div class="container">
-
                 <div class="row">
                     <div class="col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-sm-8 col-md-8 col-lg-8">
                         {{-- Flash session --}}
@@ -46,7 +45,7 @@
         {{-- JavaScript --}}
         {{-- ====================================== --}}
         {{-- Placed in the bottom because the pagespeed Insights --}}
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
         <script src="{{ base_url('assets/js/bootstrap.min.js') }}"></script>
 
         {{-- IE10 viewport hack for Surface/desktop Windows 8 bug --}}
