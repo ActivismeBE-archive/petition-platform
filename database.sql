@@ -30,6 +30,37 @@ CREATE TABLE IF NOT EXISTS categories (
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+DROP TABLE IF EXISTS signatures;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE IF NOT EXISTS signatures (
+	PRIMARY KEY (id),
+	id	                    INT				   AUTO_INCREMENT,
+    publish                 VARCHAR(60)        DEFAULT NULL,
+    name                    VARCHAR(20)        DEFAULT NULL,
+    birth_data              VARCHAR(10)        DEFAULT NULL,
+    email                   VARCHAR(100)       DEFAULT NULL,
+    city_name               VARCHAR(120)       DEFAULT NULL,
+    city_code               CHAR(4)            DEFAULT NULL,
+    updated_at              TIMESTAMP NULL     DEFAULT NULL,
+    created_at              TIMESTAMP NULL     DEFAULT NULL,
+    deleted_at              TIMESTAMP NULL     DEFAULT NULL
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+DROP TABLE IF EXISTS petition_signatures;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE IF NOT EXISTS petition_signatures (
+	PRIMARY KEY (id),
+	id	                    INT				   AUTO_INCREMENT,
+    petition_id             INT                DEFAULT NULL,
+    signature_id            INT                DEFAULT NULL,
+    updated_at              TIMESTAMP NULL     DEFAULT NULL,
+    created_at              TIMESTAMP NULL     DEFAULT NULL
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
 --
 -- Dumping data for table categories
 --
@@ -3579,10 +3610,8 @@ CREATE TABLE IF NOT EXISTS login_abilities (
 --
 
 LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users`
-  DISABLE KEYS */;
-/*!40000 ALTER TABLE `users`
-  ENABLE KEYS */;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE = @OLD_TIME_ZONE */;
 

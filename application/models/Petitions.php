@@ -41,24 +41,17 @@ class Petitions extends Model
     }
 
     /**
-     *
+     * Get the signature data about the petition.
      *
      * @return belongsToMany instance.
      */
     public function signatures()
     {
-        return $this->belongsToMany()
-            ->withTimestamps();
-    }
+        // BUG TODO: Create Signature mode
+        // BUG TODO: Create MySQL table
+        // BUG TODO: Debug this out.
 
-    /**
-     *
-     *
-     * @return relation instance
-     */
-    public function categories()
-    {
-        return $this->belongsToMany()
+        return $this->belongsToMany('Signature', 'petition_signatures', 'petition_id', 'signature_id')
             ->withTimestamps();
     }
 }
