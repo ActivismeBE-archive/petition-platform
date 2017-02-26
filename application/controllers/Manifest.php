@@ -39,9 +39,9 @@ class Manifest extends MY_Controller
      */
 	public function index()
 	{
-        $data['title']          = 'Manifest backend';
-        $data['recent']         = Petitions::all();
-        $data['popular']        = Petitions::all();
+        $data['title']    = 'Manifest backend';
+        $data['recent']   = Petitions::all();
+        $data['popular']  = Petitions::all();
 
         if ($this->user) {
             $data['userPetitions'] = Petitions::where('creator_id', $this->user['id'])->get();
@@ -58,8 +58,16 @@ class Manifest extends MY_Controller
      */
     public function show()
     {
-        $petitionId       = $this->security->xss_clean($this->uri->segment(3));
-        $data['petition'] = Petitions::find($petitionId);
+        $petitionId  = $this->security->xss_clean($this->uri->segment(3));
+        $relCriteria = function ($query) {
+            $query->where('publish', 'Y');
+            $query->paginate(15); // NOTE: Ne"eds debugging.
+         };
+
+        $data['petition']  = Petitions::with(['signatures' => $relCriteria])->find($petitionId);
+        $data['countries'] = Countries::all();
+        $data['cities']    = Cities::all();
+
 
         if ((int) count($data['petition']) === 0) { // No petition found.
             $this->session->set_flashdata('class', 'alert alert-danger');
@@ -70,6 +78,12 @@ class Manifest extends MY_Controller
         return $this->blade->render('petitions/show', $data);
     }
 
+    /**
+     * Create a new petition into the system.
+     *
+     * @see:url('GET|HEAD', 'http://www.petities.activisme.be/manifest/create')
+     * @return Blade view.
+     */
     public function create()
     {
         $data['title']      = 'Nieuwe petitie';

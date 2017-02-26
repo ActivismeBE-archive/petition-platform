@@ -47,10 +47,6 @@ class Petitions extends Model
      */
     public function signatures()
     {
-        // BUG TODO: Create Signature mode
-        // BUG TODO: Create MySQL table
-        // BUG TODO: Debug this out.
-
         return $this->belongsToMany('Signature', 'petition_signatures', 'petition_id', 'signature_id')
             ->withTimestamps();
     }

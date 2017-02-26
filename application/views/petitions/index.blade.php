@@ -39,7 +39,7 @@
                                         @foreach ($recent as $petition1)
                                             <tr>
                                                 <td><span class="label label-primary">{{ count($petition1->signatures) }}</span></td>
-                                                <td><a href="{{ base_url('manifest/show' . $petition1->id) }}">{{ $petition1->title }}</a></td>
+                                                <td><a href="{{ base_url('manifest/show/' . $petition1->id) }}">{{ $petition1->title }}</a></td>
                                                 <td>{{ $petition1->created_at }}</td>
                                             </tr>
                                         @endforeach
