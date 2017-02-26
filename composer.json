@@ -15,7 +15,6 @@
         "illuminate/database": "5.4.*",
         "illuminate/events": "5.4.*",
 		"symfony/var-dumper": "^3.2",
-		"illuminate/pagination": "5.4.*"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"

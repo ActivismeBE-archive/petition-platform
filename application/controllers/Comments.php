@@ -1,4 +1,4 @@
-<?php if defined('BASEPATH') OR exit ('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Comments controller.
@@ -24,6 +24,8 @@ class Comments extends MY_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->library(['session', 'form_validation']);
+        $this->load->helper(['url']);
 
         $this->user         = $this->session->userdata('user');
         $this->permissions  = $this->session->userdata('permissions');
@@ -38,22 +40,25 @@ class Comments extends MY_Controller
      */
     public function insert()
     {
-        $this->form_validation->set_rules('Comment', 'Reactie', 'trim|required');
+        $petitionId = $this->security->xss_clean($this->uri->segment(3));
+        $this->form_validation->set_rules('comment', 'Reactie', 'trim|required');
 
-        if ($this->form_validation->run() === false) { // Validation fails.
-            $data['title'] = '';
+        if ($this->form_validation->run() === false) { // Validation fails.s
+            $data['petition']  = Petitions::with('signatures')->find($petitionId);
+            $data['countries'] = Countries::all();
+            $data['cities']    = Cities::all();
 
             return $this->blade->render('', $data);
         }
 
         // No validation errors. So move on with the logic.
-        $petitionId = $this->security->xss_clean($this->uri->segement(3));
 
         $data['comment'] = $this->input->post('comment');
-        $data['user_id'] = $this->security->xss_clean($this->user['id']);
 
         $MySQL['insert']   = Comment::create($this->security->xss_clean($data));
-        $MySQL['relation'] = Petitions::find($petitionId)->comments()->attach($MySQL['insert']->id);
+        $MySQL['relation'] = Petitions::find($petitionId)->comments()->attach($MySQL['insert']->id, [
+            'author_id' =>  $this->security->xss_clean($this->user['id'])
+        ]);
 
         if ($MySQL['insert'] && $MySQL['relation']) {
             $this->session->set_flashdata('class', 'alert alert-success');

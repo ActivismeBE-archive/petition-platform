@@ -50,4 +50,16 @@ class Petitions extends Model
         return $this->belongsToMany('Signature', 'petition_signatures', 'petition_id', 'signature_id')
             ->withTimestamps();
     }
+
+    /**
+     * Get the comments for a signature.
+     *
+     * @return belongsToMany Instance.
+     */
+    public function comments()
+    {
+        return $this->belongsToMany('Comment', 'comments_petitions', 'manifest_id', 'comment_id')
+            ->withPivot('author_id')
+            ->withTimestamps();
+    }
 }

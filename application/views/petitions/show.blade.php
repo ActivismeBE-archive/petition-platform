@@ -25,14 +25,46 @@
 
             {{-- Comment box --}}
                 {{-- Comments --}}
+                    @foreach ($petition->comments as $comment)
+                        <div class="well well-sm" style="margin-bottom:10px;">
+							<div class="media">
+	  							<div class="media-left">
+	    							<a href="#">
+	      								<img style="width: 64px; height:64px;" class=" img-rounded media-object" src="" alt="...">
+	    							</a>
+	  							</div>
+
+	  							<div class="media-body">
+	    								<h4 class="media-heading">
+	    									Tim <small>00-00-00</small>
+	    									<span class="pull-right">
+	    										<small>
+	    										<a href="">
+	    											<small><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Rapporteer</small>
+	    										</a>
+
+	    										<a href="">
+	    											<small><span class="fa fa-close"></span> Verwijder</small>
+	    										</a>
+	    									</small>
+	    								</span>
+	    							</h4>
+
+	    							Ik ben een comment
+	  							</div>
+							</div>
+						</div>
+                    @endforeach
+
+                    <hr>
                 {{-- /Comments --}}
 
                 {{-- Reaction box --}}
                     @if ($this->user)
-                        <form class="form-horizontal" action="" method="post">
+                        <form class="form-horizontal" action="{{ base_url('comments/insert/' . $petition->id) }}" method="post">
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <textarea name="name" rows="5" class="form-control" placeholder="Uw reactie"></textarea>
+                                    <textarea name="comment" rows="5" class="form-control" placeholder="Uw reactie"></textarea>
                                 </div>
                             </div>
 

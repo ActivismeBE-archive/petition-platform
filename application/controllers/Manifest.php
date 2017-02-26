@@ -64,10 +64,9 @@ class Manifest extends MY_Controller
             $query->paginate(15); // NOTE: Ne"eds debugging.
          };
 
-        $data['petition']  = Petitions::with(['signatures' => $relCriteria])->find($petitionId);
+        $data['petition']  = Petitions::with(['signatures', 'comments'])->find($petitionId);
         $data['countries'] = Countries::all();
         $data['cities']    = Cities::all();
-
 
         if ((int) count($data['petition']) === 0) { // No petition found.
             $this->session->set_flashdata('class', 'alert alert-danger');
