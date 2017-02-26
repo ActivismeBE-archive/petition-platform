@@ -25,7 +25,8 @@
 
             {{-- Comment box --}}
                 {{-- Comments --}}
-                    @foreach ($petition->comments as $comment)
+                    {{ $comments_link }}
+                    @foreach ($comments as $comment)
                         <div class="well well-sm" style="margin-bottom:10px;">
 							<div class="media">
 	  							<div class="media-left">

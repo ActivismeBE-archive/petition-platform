@@ -23,7 +23,7 @@ class Manifest extends MY_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->library(['session', 'form_validation', 'blade']);
+		$this->load->library(['session', 'form_validation', 'blade', 'pagination', 'paginator']);
 		$this->load->helper(['url']);
 
 		$this->user        = $this->session->userdata('user');
@@ -58,13 +58,9 @@ class Manifest extends MY_Controller
      */
     public function show()
     {
-        $petitionId  = $this->security->xss_clean($this->uri->segment(3));
-        $relCriteria = function ($query) {
-            $query->where('publish', 'Y');
-            $query->paginate(15); // NOTE: Ne"eds debugging.
-         };
-
+        $petitionId        = $this->security->xss_clean($this->uri->segment(3));
         $data['petition']  = Petitions::with(['signatures', 'comments'])->find($petitionId);
+        $data['title']     = $data['petition']->title;
         $data['countries'] = Countries::all();
         $data['cities']    = Cities::all();
 
@@ -73,7 +69,16 @@ class Manifest extends MY_Controller
             $this->session->set_flashdata('message', 'Er is geen petitie gevonden met de id #'. $petitionId);
         }
 
-        $data['title'] = $data['petition']->title;
+        // Articles
+        $this->pagination->initialize($this->paginator->relation(base_url('manifest/show/' . $data['petition']->id), $data['petition']->signatures()->count(), 4, 4));
+        $data['signatures']      = $data['petition']->comments()->skip($this->input->get('page'))->take(4)->get();
+        $data['signatures_link'] = $this->pagination->create_links();
+
+        // Comments
+        $this->pagination->initialize($this->paginator->relation(base_url('manifest/show/' . $data['petition']->id), $data['petition']->comments()->count(), 4, 4));
+        $data['comments']      = $data['petition']->comments()->skip($this->input->get('page'))->take(4)->get();
+        $data['comments_link'] = $this->pagination->create_links();
+
         return $this->blade->render('petitions/show', $data);
     }
 
