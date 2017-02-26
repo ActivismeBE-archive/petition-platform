@@ -40,9 +40,9 @@ class Comments extends MY_Controller
     {
         $this->form_validation->set_rules('Comment', 'Reactie', 'trim|required');
 
-        if ($this->$this->form_validation->run() === false) { // Validation fails.
+        if ($this->form_validation->run() === false) { // Validation fails.
             $data['title'] = '';
-            
+
             return $this->blade->render('', $data);
         }
 
@@ -79,6 +79,8 @@ class Comments extends MY_Controller
 
             return $this->blade->render('', $data);
         }
+
+        // No validatiàon errors found. Mo)ve on with the logic.
 
         return redirect("");
     }
