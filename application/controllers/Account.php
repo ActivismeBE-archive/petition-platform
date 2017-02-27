@@ -70,6 +70,10 @@ class Account extends MY_Controller
      */
     public function update()
     {
+        $this->form_validation->set_rules('username', 'username', 'trim|required');
+        $this->form_validation->set_rules('name', 'name', 'trim|required|is_unique[users.username]');
+        $this->form_validation->set_rules('email', 'password', 'trim|required|is_unique[users.email]');
+
         if ($this->form_validation->run() === false) {
             // dump(validation_errors());   // NOTE: Debugging propose only.
             // die();                       // NOTE: Debugging propose only.
