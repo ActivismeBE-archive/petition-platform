@@ -70,7 +70,7 @@
                                     <strong>Info:</strong> Er zijn nog geen petities in het systeem.
                                 </div>
                             @else
-                                <table>
+                                <table class="table table-hover table-condensed">
                                     <thead>
                                         <th>Handtekeningen:</th>
                                         <th>Naam petitie:</th>

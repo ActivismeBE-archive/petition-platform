@@ -19,7 +19,7 @@
                         <div style="margin-top: -20px;" class="page-header">
                             <div class="btn-toolbar pull-right">
                                 <div class="btn-group">
-                                    <a href="" class='btn btn-sm btn-link'>Handtekeningen</a>
+                                    <a href="{{ base_url('manifest/signatures/' . $petition->id ) }}" class='btn btn-sm btn-link'>Handtekeningen</a>
                                 </div>
                             </div>
 

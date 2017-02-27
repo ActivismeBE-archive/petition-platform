@@ -69,12 +69,12 @@ class Manifest extends MY_Controller
      * Show a specific petition.
      *
      * @see:url('GET|HEAD', 'http://www.petities.activisme.be/manifest/show/{id}')
-     * @return
+     * @return Blade view.
      */
     public function show()
     {
         $petitionId        = $this->security->xss_clean($this->uri->segment(3));
-        $data['petition']  = Petitions::with(['signatures', 'comments'])->find($petitionId);
+        $data['petition']  = Petitions::with(['comments'])->find($petitionId);
         $data['title']     = $data['petition']->title;
         $data['countries'] = Countries::all();
         $data['cities']    = Cities::all();
@@ -83,11 +83,6 @@ class Manifest extends MY_Controller
             $this->session->set_flashdata('class', 'alert alert-danger');
             $this->session->set_flashdata('message', 'Er is geen petitie gevonden met de id #'. $petitionId);
         }
-
-        // Articles
-        $this->pagination->initialize($this->paginator->relation(base_url('manifest/show/' . $data['petition']->id), $data['petition']->signatures()->count(), 4, 4));
-        $data['signatures']      = $data['petition']->comments()->skip($this->input->get('page'))->take(4)->get();
-        $data['signatures_link'] = $this->pagination->create_links();
 
         // Comments
         $this->pagination->initialize($this->paginator->relation(base_url('manifest/show/' . $data['petition']->id), $data['petition']->comments()->count(), 4, 4));
@@ -115,7 +110,7 @@ class Manifest extends MY_Controller
      * Create a new petition in the system.
      *
      * @see:url('POST', 'http://www.petities.activisme.be/manifest/create')
-     * @return
+     * @return Blade view | response
      */
 	public function store()
 	{
@@ -142,6 +137,65 @@ class Manifest extends MY_Controller
 
         return redirect($_SERVER['HTTP_REFERER']);
 	}
+
+    /**
+     *
+     *
+     */
+    public function sign()
+    {
+        $this->form_validation->set_rules('', '', 'trim|required');
+        $this->form_validation->set_rules('', '', 'trim|required');
+        $this->form_validation->set_rules('', '', 'trim|required');
+        $this->form_validation->set_rules('', '', 'trim|required');
+        $this->form_validation->set_rules('', '', 'trim|required');
+
+        if ($this->form_validation->run() === false) { // Validation fails
+            $petitionId        = $this->security->xss_clean($this->uri->segment(3));
+            $data['petition']  = Petitions::with(['comments'])->find($petitionId);
+            $data['title']     = $data['petition']->title;
+            $data['countries'] = Countries::all();
+            $data['cities']    = Cities::all();
+
+            if ((int) count($data['petition']) === 0) { // No petition found.
+                $this->session->set_flashdata('class', 'alert alert-danger');
+                $this->session->set_flashdata('message', 'Er is geen petitie gevonden met de id #'. $petitionId);
+            }
+
+            $this->pagination->initialize($this->paginator->relation(base_url('manifest/show/' . $data['petition']->id), $data['petition']->comments()->count(), 4, 4));
+            $data['comments']      = $data['petition']->comments()->skip($this->input->get('page'))->take(4)->get();
+            $data['comments_link'] = $this->pagination->create_links();
+
+            return $this->blade->render('petitions/show', $data);
+        }
+
+        // Validation passes. Move on with the controller logic.
+        $MySQL['sign']   = '';
+        $MySQL['assign'] = '';
+
+        if ($MySQL['sign'] && $MySQL['assign']) {
+            $this->session->set_flashdata('class', 'alert alert-successs');
+            $this->session->set_flashdata('message', 'U hebt deze petitie getekend.');
+        }
+
+        return redirect($_SERVER['HTTP_REFERER']);
+    }
+
+    /**
+     * Show all the supporters for a manifest.
+     *
+     * @see:url('GET|HEAD', 'http://www.petities.activisme.be/manifest/signatures/{petitionId}')
+     * @return Blade view.
+     */
+    public function signatures()
+    {
+        $petitionId = $this->security->xss_clean($this->uri->segment(3));
+
+        $data['title']      = 'Petitie handtekeningen';
+        $data['signatures'] = Petitions::with(['signatures'])->find($petitionId);
+
+        return $this->blade->render('petitions/signatures', $data);
+    }
 
     /**
      * Delete a specific petition.
