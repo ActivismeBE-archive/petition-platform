@@ -1,5 +1,9 @@
 @layout('layouts/app')
 
+@section('extra-js')
+    <script src="{{ base_url('assets/js/Comments.js') }}"></script>
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col-sm-12">
@@ -13,6 +17,12 @@
                 <div class="panel-body">
                     {{-- Petition manifest --}}
                         <div style="margin-top: -20px;" class="page-header">
+                            <div class="btn-toolbar pull-right">
+                                <div class="btn-group">
+                                    <a href="" class='btn btn-sm btn-link'>Handtekeningen</a>
+                                </div>
+                            </div>
+
                             <h2 style="margin-bottom: -5px;">{{ $petition->title }}</h2>
                         </div>
 
@@ -36,22 +46,27 @@
 	  							</div>
 
 	  							<div class="media-body">
-	    								<h4 class="media-heading">
-	    									Tim <small>00-00-00</small>
-	    									<span class="pull-right">
-	    										<small>
-	    										<a href="">
-	    											<small><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Rapporteer</small>
-	    										</a>
+	    							<h4 class="media-heading">
+                                        {{ Authencate::find($comment->pivot->author_id)->name }} <small>{{ $comment->created_at }}</small>
 
-	    										<a href="">
-	    											<small><span class="fa fa-close"></span> Verwijder</small>
-	    										</a>
-	    									</small>
-	    								</span>
+                                        @if ($this->user)
+                                            <span class="pull-right">
+												<small>
+    	    									  	<a href="#" onclick="report('{{ base_url('comments/getId/' . $comment->id) }}')">
+    	    										   	<small class="text-danger"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Rapporteer</small>
+    	    										</a>
+
+    	    										@if (in_array('Admin', $this->permissions) || (int) $comment->pivot->author_id === $this->user['id'])
+                                                        <a href="">
+        	    											<small class="text-danger"><span class="fa fa-close"></span> Verwijder</small>
+        	    										</a>
+                                                    @endif
+    	    									</small>
+											</span>
+                                        @endif
 	    							</h4>
 
-	    							Ik ben een comment
+	    							{{ $comment->comment }}
 	  							</div>
 							</div>
 						</div>
@@ -157,4 +172,8 @@
             </div>
         </div>
     </div>
+
+    {{-- Modal includes --}}
+        @include('petitions/partials/report-modal')
+    {{-- /Modal includes --}}
 @endsection

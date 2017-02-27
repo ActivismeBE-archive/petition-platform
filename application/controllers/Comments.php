@@ -24,7 +24,7 @@ class Comments extends MY_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->library(['session', 'form_validation']);
+        $this->load->library(['session', 'form_validation', 'blade']);
         $this->load->helper(['url']);
 
         $this->user         = $this->session->userdata('user');
@@ -45,6 +45,12 @@ class Comments extends MY_Controller
     protected function middleware()
     {
         return [];
+    }
+
+    public function getId()
+    {
+        $commentId = $this->security->xss_clean($this->uri->segment(3));
+		echo json_encode(Comment::select('id')->find($commentId));
     }
 
     /**
