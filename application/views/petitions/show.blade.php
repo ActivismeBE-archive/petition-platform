@@ -113,24 +113,24 @@
                 </div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" id="signature" action="index.html" method="post">
+                    <form class="form-horizontal" id="signature" action="{{ base_url('manifest/sign/' . $petition->id ) }}" method="post">
                         {{-- TODO: Implement CSRF token --}}
 
                         <div class="form-group form-group-sm">
                             <div class="col-sm-12">
-                                <input type="text" class="form-control" placeholder="Naam en voornaam" name="" value="">
+                                <input type="text" class="form-control" placeholder="Naam en voornaam" name="name" value="">
                             </div>
                         </div>
 
                         <div class="form-group form-group-sm">
                             <div class="col-sm-12">
-                                <input class="form-control" class="form-control" placeholder="Email adres" name="" value="">
+                                <input class="form-control" class="form-control" placeholder="Email adres" name="email" value="">
                             </div>
                         </div>
 
                         <div class="form-group form-group-sm">
                             <div class="col-sm-12">
-                                <select class="form-control" name="">
+                                <select class="form-control" name="city">
                                     <option value=""> -- Stad -- </option>
 
                                     @foreach ($cities as $city)
@@ -142,7 +142,7 @@
 
                         <div class="form-group form-group-sm">
                             <div class="col-sm-12">
-                                <select name="" class="form-control">
+                                <select name="country" class="form-control">
                                     <option value=""> -- Land --</option>
 
                                     @foreach ($countries as $country)
@@ -154,7 +154,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-12">
-                                <input type="checkbox" name="" value="Y"> Ik teken publiekelijk.
+                                <input type="checkbox" name="publish" value="Y"> Ik teken publiekelijk.
                             </div>
                         </div>
                     </form>

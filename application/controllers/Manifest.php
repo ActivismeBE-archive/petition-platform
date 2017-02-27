@@ -139,19 +139,22 @@ class Manifest extends MY_Controller
 	}
 
     /**
+     * Sign a petition in the system.
      *
-     *
+     * @see:url('POST', 'http://www.petities.activisme.be/manifest/sign/{id}')
+     * @return Blade view | Response 
      */
     public function sign()
     {
-        $this->form_validation->set_rules('', '', 'trim|required');
-        $this->form_validation->set_rules('', '', 'trim|required');
-        $this->form_validation->set_rules('', '', 'trim|required');
-        $this->form_validation->set_rules('', '', 'trim|required');
-        $this->form_validation->set_rules('', '', 'trim|required');
+        $petitionId = $this->security->xss_clean($this->uri->segment(3));
+
+        $this->form_validation->set_rules('name', 'Naam', 'trim|required');
+        $this->form_validation->set_rules('email', 'Email', 'trim|required');
+        $this->form_validation->set_rules('city', 'Stad', 'trim|required');
+        $this->form_validation->set_rules('country', 'Land', 'trim|required');
+        $this->form_validation->set_rules('publish', 'Publieke reactie', 'trim|required');
 
         if ($this->form_validation->run() === false) { // Validation fails
-            $petitionId        = $this->security->xss_clean($this->uri->segment(3));
             $data['petition']  = Petitions::with(['comments'])->find($petitionId);
             $data['title']     = $data['petition']->title;
             $data['countries'] = Countries::all();
@@ -170,8 +173,14 @@ class Manifest extends MY_Controller
         }
 
         // Validation passes. Move on with the controller logic.
-        $MySQL['sign']   = '';
-        $MySQL['assign'] = '';
+        $input['name']    = $this->input->post('name');
+        $input['email']   = $this->input->post('email');
+        $input['city']    = $this->input->post('city');
+        $input['country'] = $this->input->post('country');
+        $input['publish'] = $this->input->post('publish');
+
+        $MySQL['sign']   = Signature::create($this->security->xss_clean($input));
+        $MySQL['assign'] = Signature::find($petitionId)->signaures()->attach($MySQL['sign']->id);
 
         if ($MySQL['sign'] && $MySQL['assign']) {
             $this->session->set_flashdata('class', 'alert alert-successs');
