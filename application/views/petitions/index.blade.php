@@ -59,7 +59,25 @@
                                         </a>
                                     </div>
                                 @else
-
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-condensed">
+                                            <thead>
+                                                <tr>
+                                                    <th>Handtekeningen:</th>
+                                                    <th>Naam petitie:</th>
+                                                    <th>Gecreerd op:</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($userPetitions as $petition3)
+                                                    <tr>
+                                                        <td><span class="label label-primary">{{ count($petition3->signatures) }} handtekeningen</span></td>
+                                                        <td><a href="{{ base_url('manifest/show/' . $petition3->id) }}"> {{ $petition3->title }} </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 @endif
                             </div>
                         @endif
@@ -72,15 +90,17 @@
                             @else
                                 <table class="table table-hover table-condensed">
                                     <thead>
-                                        <th>Handtekeningen:</th>
-                                        <th>Naam petitie:</th>
-                                        <th>Gecreerd op:</th>
+                                        <tr>
+                                            <th>Handtekeningen:</th>
+                                            <th>Naam petitie:</th>
+                                            <th>Gecreerd op:</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($popular as $petition2)
                                             <tr>
                                                 <td><span class="label label-primary">{{ count($petition2->signatures) }}</span></td>
-                                                <td><a href="{{ base_url('manifest/show' . $petition2->id) }}">{{ $petition2->title }}</a></td>
+                                                <td><a href="{{ base_url('manifest/show/' . $petition2->id) }}">{{ $petition2->title }}</a></td>
                                                 <td>{{ $petition2->created_at }}</td>
                                             </tr>
                                         @endforeach
