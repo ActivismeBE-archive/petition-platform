@@ -38,7 +38,7 @@
                                     <tbody>
                                         @foreach ($recent as $petition1)
                                             <tr>
-                                                <td><span class="label label-primary">{{ count($petition1->signatures) }}</span></td>
+                                                <td><span class="label label-primary">{{ count($petition1->signatures) }} handtekeningen</span></td>
                                                 <td><a href="{{ base_url('manifest/show/' . $petition1->id) }}">{{ $petition1->title }}</a></td>
                                                 <td>{{ $petition1->created_at }}</td>
                                             </tr>
@@ -65,14 +65,20 @@
                                                 <tr>
                                                     <th>Handtekeningen:</th>
                                                     <th>Naam petitie:</th>
-                                                    <th>Gecreerd op:</th>
+                                                    <th colspan="2">Gecreerd op:</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach ($userPetitions as $petition3)
                                                     <tr>
                                                         <td><span class="label label-primary">{{ count($petition3->signatures) }} handtekeningen</span></td>
-                                                        <td><a href="{{ base_url('manifest/show/' . $petition3->id) }}"> {{ $petition3->title }} </td>
+                                                        <td><a href="{{ base_url('manifest/show/' . $petition3->id) }}"> {{ $petition3->title }} </a></td>
+                                                        <td>{{ $petition3->created_at }}</td>
+                                                        <td>
+                                                            <a href="{{ base_url('manifest/delete/' . $petition3->id) }}" class="label label-danger">
+                                                                <span class="fa fa-close" aria-hidden="true"></span> Verwijderen
+                                                            </a>
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
@@ -99,7 +105,7 @@
                                     <tbody>
                                         @foreach ($popular as $petition2)
                                             <tr>
-                                                <td><span class="label label-primary">{{ count($petition2->signatures) }}</span></td>
+                                                <td><span class="label label-primary">{{ count($petition2->signatures) }} handtekeningen</span></td>
                                                 <td><a href="{{ base_url('manifest/show/' . $petition2->id) }}">{{ $petition2->title }}</a></td>
                                                 <td>{{ $petition2->created_at }}</td>
                                             </tr>

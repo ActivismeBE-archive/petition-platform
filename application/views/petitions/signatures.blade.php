@@ -34,8 +34,17 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($signatures->signatures as $signature)
-                                            @if ($signature->publish == 'Y') 
-                                            @else
+                                            <tr>
+                                                <td>#{{ $signature->id }}</td>
+
+                                                @if ($signature->publish == 'Y')
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>{{ $signature->created_at }}</td>
+                                                @else
+                                                    <td colspan="3"><i><span class="text-muted">Deze gebruiker heeft gekozen om anoniem te tekenen.</i></td>
+                                                @endif
+                                            </tr>
                                         @endforeach
                                     </tbody>
                                 </table>

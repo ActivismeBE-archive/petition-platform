@@ -17,9 +17,24 @@
                 <div class="panel-body">
                     {{-- Petition manifest --}}
                         <div style="margin-top: -20px;" class="page-header">
-                            <div class="btn-toolbar pull-right">
-                                <div class="btn-group">
-                                    <a href="{{ base_url('manifest/signatures/' . $petition->id ) }}" class='btn btn-sm btn-link'>Handtekeningen</a>
+                            <div class="pull-right">
+                                <div class="dropdown">
+                                    <button class='btn btn-sm btn-info dropdown-toggle' data-toggle="dropdown" type="button">
+                                        <span class="fa fa-info-circle" aria-hidden="true"></span> Informatie <span class="caret"></span>
+                                    </button>
+
+                                    <ul class="dropdown-menu">
+                                        @if ($petition->creator_id === $this->user['id'])
+                                            <li><a href="#" data-toggle="modal" data-target="#update"><span class="fa fa-plus" aria-hidden="true"></span> Schrijf een update</a></li>
+                                        @endif
+
+                                        <li><a href="{{ base_url() }}"><span class="fa fa-info-circle" aria-hidden="true"></span> Updates</a></li>
+                                        <li><a href="{{ base_url('manifest/signatures/' . $petition->id) }}"><span class="fa fa-file-text-o" aria-hidden="true"></span> Handtekeneningen</a></li>
+
+                                        @if (! $petition->creator_id === $this->user['id'])
+                                            <li><a href="mailto:{{ $petition->creator->email }}"><span class="fa fa-envelope" aria-hidden="true"></span> Contacteer verantwoordelijke</a></li>
+                                        @endif
+                                    </ul>
                                 </div>
                             </div>
 
@@ -72,7 +87,9 @@
 						</div>
                     @endforeach
 
-                    <hr>
+                    @if ((int) count($comments) > 0)
+                        <hr>
+                    @endif
                 {{-- /Comments --}}
 
                 {{-- Reaction box --}}
@@ -175,5 +192,6 @@
 
     {{-- Modal includes --}}
         @include('petitions/partials/report-modal')
+        @include('petitions/partials/update-modal')
     {{-- /Modal includes --}}
 @endsection

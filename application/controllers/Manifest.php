@@ -74,7 +74,7 @@ class Manifest extends MY_Controller
     public function show()
     {
         $petitionId        = $this->security->xss_clean($this->uri->segment(3));
-        $data['petition']  = Petitions::with(['comments'])->find($petitionId);
+        $data['petition']  = Petitions::with(['comments', 'creator'])->find($petitionId);
         $data['title']     = $data['petition']->title;
         $data['countries'] = Countries::all();
         $data['cities']    = Cities::all();
@@ -142,7 +142,7 @@ class Manifest extends MY_Controller
      * Sign a petition in the system.
      *
      * @see:url('POST', 'http://www.petities.activisme.be/manifest/sign/{id}')
-     * @return Blade view | Response 
+     * @return Blade view | Response
      */
     public function sign()
     {
@@ -216,9 +216,11 @@ class Manifest extends MY_Controller
 	{
         $manifestId = $this->uri->segment(3);
 
-        if (Petition::find($manifestId)->delete()) {
+        if (Petitions::find($manifestId)->delete()) {
             $this->session->set_flashdata('class', 'alert alert-success');
             $this->session->set_flashdata('message', 'De petitie is verwijderd');
         }
+
+        return redirect(base_url('manifest'));
 	}
 }
