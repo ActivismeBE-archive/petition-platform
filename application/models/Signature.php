@@ -6,8 +6,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Signature extends Model
 {
     use SoftDeletes;
-    
+
     protected $table = 'signatures';
 
+    /**
+     * 
+     *
+     * @return array
+     */
     protected $fillable = [];
 }

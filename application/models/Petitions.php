@@ -52,6 +52,17 @@ class Petitions extends Model
     }
 
     /**
+     * Get the updates about a petition.
+     *
+     * @return belongsToMany instance
+     */
+    public function updates()
+    {
+        return $this->belongsToMany('Updates', 'petition_updates', 'petition_id', 'signature_id')
+            ->withTimestamps();
+    }
+
+    /**
      * Get the comments for a signature.
      *
      * @return belongsToMany Instance.

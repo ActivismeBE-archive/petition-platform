@@ -9,5 +9,9 @@ class Countries extends Model
 
     protected $table = 'countries';
 
+    /**
+     *
+     * @return 
+     */
     protected $fillable = [];
 }
