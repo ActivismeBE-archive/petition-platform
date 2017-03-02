@@ -43,6 +43,12 @@
 
                             <ul class="dropdown-menu">
                                 <li><a href=""><span class="fa fa-wrench" aria-hidden="true"></span> Account configuratie</a></li>
+
+                                @if (in_array('Admin', $this->permissions))
+                                    <li><a href=""><span class="fa fa-users" aria-hidden="true"></span> Loginbeheer</a></li>
+                                    <li><a href=""></li>
+                                @endif
+
                                 <li class="divider"></li>
                                 <li><a href="{{ base_url('auth/logout') }}"><span class="fa fa-power-off" aria-hidden="true"></span> Uitloggen</a></li>
                             </ul>
