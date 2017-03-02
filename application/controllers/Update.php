@@ -71,7 +71,7 @@ class Update extends MY_Controller
         $data['updates']      = $data['petition']->comments()->skip($this->input->get('page'))->take(4)->get();
         $data['updates_link'] = $this->pagination->create_links();
 
-        return $this->blade->render('petitions.updates', $data)
+        return $this->blade->render('petitions/updates', $data)
     }
 
     /**
@@ -110,9 +110,23 @@ class Update extends MY_Controller
         return redirect($_SERVER['HTTP_REFERER']);
     }
 
+    /**
+     * Show a specific update for a petition.
+     *
+     * @see:url('GET|HEAD', 'http://www.petities.activisme.be/update/petitionId')
+     * @return Blade view | Response.
+     */
     public function show()
     {
-        
+        $petitionId = $this->security->xss_clean($this->uri->segment(3));
+        $data['petition'] = Petitions::find($petitionId);
+
+        if ((int) count($data['petition']) === 0) {
+            $this->session->set_flashdata('class', 'alert alert-success');
+            $this->session->set_flashdata('message', 'Wij konden geen petitie update vinden met de id #' . $petitionId);
+        }
+
+        return $this->blade->render('petitions/show', $data);
     }
 
     /**
