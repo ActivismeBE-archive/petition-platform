@@ -101,13 +101,21 @@ class Comments extends MY_Controller
         $this->form_validation->set_rules('description', 'Beschrijving', 'trim|required');
 
         if ($this->form_validation->run() === false) { // Validation fails.
-            $data['title'] = '';
+            $this->session->set_flashdata('class', 'alert alert-danger');
+            $this->session->set_flashdata('message', 'Wij konden de rapportering niet verwerken');
 
-            return $this->blade->render('', $data);
+            return redirect($_SERVER['HTTP_REFERER']);
         }
 
-        // No validatiàon errors found. Mo)ve on with the logic.
+        // No validation errors found. Mo)ve on with the logic.
+        $input['reason_id']   = $this->input->post('reason');
+        $input['description'] = $this->input->post('description');
 
-        return redirect("");
+        if (Reports::create($this->security->xss_clean($input))) {
+            $this->session->set_flashdata('class', 'alert alert-success');
+            $this->session->set_flashdata('message', 'De rapportering is opgeslagen.');
+        }
+
+        return redirect($_SERVER['HTTP_REFERER']);
     }
 }

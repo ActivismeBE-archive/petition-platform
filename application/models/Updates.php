@@ -3,9 +3,19 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * Update Model.
+ *
+ * @author    Tim Joosten   <Topairy@gmail.com>
+ * @copyright Activisme-BE  <info@activisme.be>
+ * @license:  MIT license
+ * @since     2017
+ * @package   Petitions
+ */
 class Updates extends Model
 {
     use SoftDeletes;
+
     /**
      * The database table name.
      *

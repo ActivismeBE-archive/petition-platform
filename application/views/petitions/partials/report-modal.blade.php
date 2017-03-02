@@ -14,7 +14,7 @@
             <div class="modal-body">
                 <form action="{{  base_url('comments/report')  }}" id="form" method="POST" class="form-horizontal">
                     <input type="hidden" name="{{ $this->security->get_csrf_token_name() }}" value="{{ $this->security->get_csrf_hash() }}">
-                    <input type="hidden" value="" name="id"/>
+                    <input type="hidden" value="" name="id"/> {{-- ID will be placed from AJAX request --}}
 
 
                     <div class="form-group">
@@ -23,8 +23,12 @@
                         </label>
 
                         <div class="col-md-9">
-                            <select class="form-control" name="">
+                            <select class="form-control" name="reason_id">
                                 <option value="">-- selecteer reden --</option>
+
+                                @foreach(Reasons::all() as $reason)
+                                    <option value="{{ $reason->id }}"> {{ $reason->name }} </option>
+                                @endforeach
                             </select>
                         </div>
                     </div>

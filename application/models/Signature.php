@@ -7,10 +7,15 @@ class Signature extends Model
 {
     use SoftDeletes;
 
+    /**
+     * The database table name.
+     *
+     * @return string
+     */
     protected $table = 'signatures';
 
     /**
-     * 
+     * Mass-assign fields.
      *
      * @return array
      */
