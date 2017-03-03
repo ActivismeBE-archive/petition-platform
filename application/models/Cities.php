@@ -7,7 +7,9 @@ class Cities extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'cities'; 
+    protected $primaryKey = 'city_id';
+
+    protected $table = 'cities';
 
     protected $fillable = [];
 }

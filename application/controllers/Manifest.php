@@ -15,11 +15,9 @@ class Manifest extends MY_Controller
     public $permissions = [];   /** @var array $permissions  The authencated user permissions.         */
     public $abilities   = [];   /** @var array $abilities    The authencated user abilities.           */
 
-    /**
-     * Manifest constructor.
-     *
-     * @return int|void|null
-     */
+	/**
+	 * Manifest constructor.
+	 */
 	public function __construct()
 	{
 		parent::__construct();
@@ -50,7 +48,7 @@ class Manifest extends MY_Controller
      * Display all the petitions in the system.
      *
      * @see:url('GET|HEAD', 'http://www.petities.activisme.be/manifest')
-     * @return Blade view.
+     * @return string
      */
 	public function index()
 	{
@@ -69,7 +67,7 @@ class Manifest extends MY_Controller
      * Show a specific petition.
      *
      * @see:url('GET|HEAD', 'http://www.petities.activisme.be/manifest/show/{id}')
-     * @return Blade view.
+     * @return string
      */
     public function show()
     {
@@ -96,7 +94,7 @@ class Manifest extends MY_Controller
      * Create a new petition into the system.
      *
      * @see:url('GET|HEAD', 'http://www.petities.activisme.be/manifest/create')
-     * @return Blade view.
+     * @return string.
      */
     public function create()
     {
@@ -110,7 +108,7 @@ class Manifest extends MY_Controller
      * Create a new petition in the system.
      *
      * @see:url('POST', 'http://www.petities.activisme.be/manifest/create')
-     * @return Blade view | response
+     * @return string
      */
 	public function store()
 	{
@@ -142,7 +140,7 @@ class Manifest extends MY_Controller
      * Sign a petition in the system.
      *
      * @see:url('POST', 'http://www.petities.activisme.be/manifest/sign/{id}')
-     * @return Blade view | Response
+     * @return mixed
      */
     public function sign()
     {
@@ -152,9 +150,11 @@ class Manifest extends MY_Controller
         $this->form_validation->set_rules('email', 'Email', 'trim|required');
         $this->form_validation->set_rules('city', 'Stad', 'trim|required');
         $this->form_validation->set_rules('country', 'Land', 'trim|required');
-        $this->form_validation->set_rules('publish', 'Publieke reactie', 'trim|required');
 
         if ($this->form_validation->run() === false) { // Validation fails
+            // dump(validation_errors());	// Only for debugging proposer
+            // die();						// Only for debugging propose.
+
             $data['petition']  = Petitions::with(['comments'])->find($petitionId);
             $data['title']     = $data['petition']->title;
             $data['countries'] = Countries::all();
@@ -180,7 +180,7 @@ class Manifest extends MY_Controller
         $input['publish'] = $this->input->post('publish');
 
         $MySQL['sign']   = Signature::create($this->security->xss_clean($input));
-        $MySQL['assign'] = Signature::find($petitionId)->signaures()->attach($MySQL['sign']->id);
+        $MySQL['assign'] = Petitions::find($petitionId)->signatures()->attach($MySQL['sign']->id);
 
         if ($MySQL['sign'] && $MySQL['assign']) {
             $this->session->set_flashdata('class', 'alert alert-successs');
@@ -190,28 +190,30 @@ class Manifest extends MY_Controller
         return redirect($_SERVER['HTTP_REFERER']);
     }
 
-    /**
-     * Show all the supporters for a manifest.
-     *
-     * @see:url('GET|HEAD', 'http://www.petities.activisme.be/manifest/signatures/{petitionId}')
-     * @return Blade view.
-     */
+	/**
+	 * Show all the supporters for a manifest.
+	 *
+	 * @see:url('GET|HEAD', 'http://www.petities.activisme.be/manifest/signatures/{petitionId}')
+	 * @return string
+	 */
     public function signatures()
     {
+        // TODO: Implement pagination.
+        
         $petitionId = $this->security->xss_clean($this->uri->segment(3));
 
         $data['title']      = 'Petitie handtekeningen';
-        $data['signatures'] = Petitions::with(['signatures'])->find($petitionId);
+        $data['signatures'] = Petitions::with(['signatures.countryRel', 'signatures.cityRel'])->find($petitionId);
 
         return $this->blade->render('petitions/signatures', $data);
     }
 
-    /**
-     * Delete a specific petition.
-     *
-     * @see:url('GET|HEAD', 'http://www.petities.activisme.be/manifest/delete/{id}')
-     * @return Redirect
-     */
+	/**
+	 * Delete a specific petition.
+	 *
+	 * @see:url('GET|HEAD', 'http://www.petities.activisme.be/manifest/delete/{id}')
+	 * @return redirect
+	 */
 	public function delete()
 	{
         $manifestId = $this->uri->segment(3);

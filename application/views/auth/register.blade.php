@@ -48,7 +48,7 @@
                             </label>
 
                             <div class="col-md-5">
-                                <input class="form-control" name="password" class="form-control" placeholder="Wachtwoord.">
+                                <input type="password" class="form-control" name="password" class="form-control" placeholder="Wachtwoord.">
                             </div>
                         </div>
 
@@ -58,7 +58,7 @@
                             </label>
 
                             <div class="col-md-5">
-                                <input class="form-control" name="password_confirmation" class="form-control" placeholder="Bevestiging wachtwoord.">
+                                <input type="password" class="form-control" name="password_confirmation" class="form-control" placeholder="Bevestiging wachtwoord.">
                             </div>
                         </div>
 

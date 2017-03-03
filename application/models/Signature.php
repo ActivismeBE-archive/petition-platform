@@ -19,5 +19,15 @@ class Signature extends Model
      *
      * @return array
      */
-    protected $fillable = [];
+    protected $fillable = ['publish', 'name', 'email', 'city', 'country'];
+
+    public function cityRel()
+    {
+        return $this->belongsTo('Cities', 'city');
+    }
+
+    public function countryRel()
+    {
+        return $this->belongsTo('Countries', 'country');
+    }
 }

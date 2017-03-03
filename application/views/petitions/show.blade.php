@@ -133,37 +133,41 @@
                     <form class="form-horizontal" id="signature" action="{{ base_url('manifest/sign/' . $petition->id ) }}" method="post">
                         {{-- TODO: Implement CSRF token --}}
 
-                        <div class="form-group form-group-sm">
+                        <div class="form-group form-group-sm {{ form_error('name') ? 'has-error' : '' }}">
                             <div class="col-sm-12">
                                 <input type="text" class="form-control" placeholder="Naam en voornaam" name="name" value="">
                             </div>
                         </div>
 
-                        <div class="form-group form-group-sm">
+                        <div class="form-group form-group-sm {{ form_error('email') ? 'has-error has-feedback' : '' }}">
                             <div class="col-sm-12">
-                                <input class="form-control" class="form-control" placeholder="Email adres" name="email" value="">
+                                <input class="form-control" class="form-control" placeholder="Email adres" name="email" value="{{ set_value('email') }}">
+
+                                @if (form_error('email'))
+                                    <span class="fa fa-exclamation-triangle form-control-feedback" aria-hidden="true"></span>
+                                @endif
                             </div>
                         </div>
 
-                        <div class="form-group form-group-sm">
+                        <div class="form-group form-group-sm {{ form_error('city') ? 'has-error' : '' }}">
                             <div class="col-sm-12">
                                 <select class="form-control" name="city">
                                     <option value=""> -- Stad -- </option>
 
                                     @foreach ($cities as $city)
-                                        <option value="{{ $city->city_id}}">{{ $city->postal_code }} - {{ $city->city_name }}</option>
+                                        <option value="{{ $city->city_id }}" @if ((int) set_value('city') === $city->city_id) selected @endif>{{ $city->postal_code }} - {{ $city->city_name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
 
-                        <div class="form-group form-group-sm">
+                        <div class="form-group form-group-sm {{ form_error('country') ? 'has-error' : '' }}">
                             <div class="col-sm-12">
                                 <select name="country" class="form-control">
                                     <option value=""> -- Land --</option>
 
                                     @foreach ($countries as $country)
-                                        <option value="{{ $country->id}}"> {{ $country->country_name}} </option>
+                                        <option value="{{ $country->country_id }}" @if ((int) set_value('country') === $country->country_id) selected @endif> {{ $country->country_name}} </option>
                                     @endforeach
                                 </select>
                             </div>

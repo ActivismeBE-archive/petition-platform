@@ -7,11 +7,13 @@ class Countries extends Model
 {
     use SoftDeletes;
 
+    protected $primaryKey = 'country_id';
+
     protected $table = 'countries';
 
     /**
      *
-     * @return 
+     * @return
      */
     protected $fillable = [];
 }

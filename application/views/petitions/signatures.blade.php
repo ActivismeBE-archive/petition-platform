@@ -12,7 +12,10 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div style="margin-top: -20px;" class="page-header">
-                        <h2 style="margin-bottom: -5px;">{{ $signatures->title }}</h2>
+                        <h2 style="margin-bottom: -5px;">
+                            {{ ucfirst($signatures->title) }}
+                            <small>- handtekeningen ({{ count($signatures->signatures) }})</small>
+                        </h2>
                     </div>
 
                     {{-- Signatures --}}
@@ -38,8 +41,11 @@
                                                 <td>#{{ $signature->id }}</td>
 
                                                 @if ($signature->publish == 'Y')
-                                                    <td></td>
-                                                    <td></td>
+                                                    <td>{{ $signature->name}}</td>
+                                                    <td>
+                                                        <img style="height: 12px;" src="{{ base_url('assets/img/flags/' . $signature->countryRel->country_flag) }}" alt="{{ $signature->cityRel->city_name }}">
+                                                        {{ $signature->countryRel->country_name }} | {{ $signature->cityRel->postal_code }} - {{ $signature->cityRel->city_name}}
+                                                    </td>
                                                     <td>{{ $signature->created_at }}</td>
                                                 @else
                                                     <td colspan="3"><i><span class="text-muted">Deze gebruiker heeft gekozen om anoniem te tekenen.</i></td>

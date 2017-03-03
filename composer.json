@@ -21,6 +21,7 @@
 	},
 	"require-dev": {
 		"mikey179/vfsStream": "1.1.*",
+	  	"robmorgan/phinx": "^0.8.0",
 		"psy/psysh": "^0.8.2"
 	},
     "config": {

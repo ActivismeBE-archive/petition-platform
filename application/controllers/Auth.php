@@ -77,6 +77,8 @@ class Auth extends MY_Controller
      */
 	public function check_database($password)
 	{
+        // BUG: MD5 is insecure. Replace it with a better hashing.
+
         $input['email'] = $this->security->xss_clean($this->input->post('email'));
         $MySQL['user']  = Authencate::where('email', $input['email'])
             ->with(['permissions', 'abilities'])
@@ -139,6 +141,8 @@ class Auth extends MY_Controller
      */
     public function store()
     {
+        // BUG: MD5 is insecure. Replace it with a better hashing.
+        
         $this->form_validation->set_rules('username', 'username', 'trim|required');
         $this->form_validation->set_rules('name', 'name', 'trim|required|is_unique[users.username]');
         $this->form_validation->set_rules('password', 'password', 'trim|required');
