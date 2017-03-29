@@ -29,6 +29,12 @@
                                 <li><a href="{{ base_url('manifest/create') }}"><span class="fa fa-plus"></span> Nieuwe petitie</a></li>
                             </ul>
                         </li>
+
+						<li>
+							<a href="{{ base_url('support') }}">
+								<span class="fa fa-question-circle" aria-hidden="true"></span> Support
+							</a>
+						</li>
                     @endif
 
                     <li><a href="{{ base_url('disclaimer') }}"> <span class="fa fa-info-circle" aria-hidden="true"></span> Disclaimer</a></li>
@@ -46,7 +52,7 @@
 
                                 @if (in_array('Admin', $this->permissions))
                                     <li><a href=""><span class="fa fa-users" aria-hidden="true"></span> Loginbeheer</a></li>
-                                    <li><a href=""><span class="fa fa-exclamation-triangle" aria-hidden="true"></a> Rapporteringen</li>
+									<li><a href=""><span class="fa fa-exclamation-triangle" aria-hidden="true"></span> Rapporteringen</a></li>
                                 @endif
 
                                 <li class="divider"></li>
