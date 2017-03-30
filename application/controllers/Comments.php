@@ -90,7 +90,7 @@ class Comments extends MY_Controller
     }
 
     /**
-     * React on a petitition update.
+     * React on a petition update.
      *
      * @see:url()
      * @return
