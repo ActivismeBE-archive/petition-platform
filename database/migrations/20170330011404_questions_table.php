@@ -2,6 +2,9 @@
 
 use Phinx\Migration\AbstractMigration;
 
+/**
+ * Class QuestionsTable
+ */
 class QuestionsTable extends AbstractMigration
 {
     /**
