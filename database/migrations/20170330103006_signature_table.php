@@ -13,11 +13,11 @@ class SignatureTable extends AbstractMigration
     public function up()
     {
         $table = $this->table('signatures', ['id' => true, 'primary_key' => 'id']);
-        $table->addColumn('publish', ['limit' => 60]);
-        $table->addColumn('name', ['limit' => 20]);
-        $table->addColumn('email', ['limit' => 100]);
-        $table->addColumn('city', ['limit' => 120]);
-        $table->addColumn('country', ['limit' => 4]);
+        $table->addColumn('publish', 'string', ['limit' => 60]);
+        $table->addColumn('name', 'string', ['limit' => 20]);
+        $table->addColumn('email', 'string', ['limit' => 100]);
+        $table->addColumn('city', 'string', ['limit' => 120]);
+        $table->addColumn('country',  'string', ['limit' => 4]);
         $table->addColumn('updated_at', 'timestamp');
         $table->addColumn('created_at', 'timestamp');
         $table->addColumn('deleted_at', 'timestamp');
