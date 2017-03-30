@@ -43,22 +43,6 @@ UNLOCK TABLES;
 -- Table structure for table `cities`
 --
 
-DROP TABLE IF EXISTS `cities`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `cities` (
-  `city_id` int(11) NOT NULL AUTO_INCREMENT,
-  `postal_code` int(11) DEFAULT NULL,
-  `city_name` text,
-  `lat_num` double DEFAULT NULL,
-  `lng_num` double DEFAULT NULL,
-  `province_id` int(3) DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`city_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2795 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `cities`
