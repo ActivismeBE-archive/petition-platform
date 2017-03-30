@@ -221,56 +221,8 @@ LOCK TABLES `login_permissions` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `migrations`
---
-
-DROP TABLE IF EXISTS `migrations`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `migrations` (
-  `id` decimal(20,0) DEFAULT NULL,
-  `applied_at` varchar(25) DEFAULT NULL,
-  `version` varchar(25) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `migrations`
---
-
-LOCK TABLES `migrations` WRITE;
-/*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (14881378949629,'2017-03-03 08:08:10','','global create users table'),(14881381051864,'2017-03-03 08:08:10','','global create sessions table'),(14881383058512,'2017-03-03 08:08:10','','create petitions table'),(14881385094697,'2017-03-03 08:08:10','','global create categories table'),(14881385668910,'2017-03-03 08:08:10','','create signature table'),(14881388061228,'2017-03-03 08:08:10','','global create continents table'),(14881389007305,'2017-03-03 08:08:10','','global create login abilites table'),(14881394823871,'2017-03-03 08:08:10','','global create permission table'),(14881396266433,'2017-03-03 08:08:10','','global create provinces table'),(14881398250432,'2017-03-03 08:08:10','','global create belgian cities table'),(14881399154995,'2017-03-03 08:08:10','','global create currencies tables'),(14881402918914,'2017-03-03 08:08:10','','global create countries table'),(14881431411551,'2017-03-03 08:08:10','','create the comments table'),(14885171160382,'2017-03-03 08:08:10','','create the report reasons table');
-/*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `permissions`
 --
-
-DROP TABLE IF EXISTS `permissions`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `permissions` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `description` text,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `permissions`
---
-
-LOCK TABLES `permissions` WRITE;
-/*!40000 ALTER TABLE `permissions` DISABLE KEYS */;
-/*!40000 ALTER TABLE `permissions` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `petition_signatures`
@@ -297,17 +249,6 @@ LOCK TABLES `petition_signatures` WRITE;
 /*!40000 ALTER TABLE `petition_signatures` DISABLE KEYS */;
 INSERT INTO `petition_signatures` VALUES (1,1,3,'2017-03-03 07:44:40','2017-03-03 07:44:40'),(2,1,4,'2017-03-03 07:45:29','2017-03-03 07:45:29'),(3,1,5,'2017-03-03 10:37:17','2017-03-03 10:37:17'),(4,1,6,'2017-03-03 10:37:44','2017-03-03 10:37:44');
 /*!40000 ALTER TABLE `petition_signatures` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
---
--- Dumping data for table `petitions`
---
-
-LOCK TABLES `petitions` WRITE;
-/*!40000 ALTER TABLE `petitions` DISABLE KEYS */;
-INSERT INTO `petitions` VALUES (1,1,2,'test','test','2017-03-03 07:27:15','2017-03-03 07:27:15',NULL);
-/*!40000 ALTER TABLE `petitions` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
