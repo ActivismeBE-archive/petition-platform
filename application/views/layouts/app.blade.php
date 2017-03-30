@@ -54,10 +54,10 @@
                             <h6 class="heading7">GENERAL LINKS</h6>
 
                             <ul class="footer-ul">
-                                <li><a href="#"> Activisme.be </a></li>
-                                <li><a href="#"> Petities </a></li>
-                                <li><a href="#"> Registreren </a></li>
-                                <li><a href="#"> Disclaimer </a></li>
+                                <li><a href="http://www.activisme.be"> Activisme.be </a></li>
+                                <li><a href="http://www.petities.activisme.be"> Petities </a></li>
+                                <li><a href="{{ base_url('auth/register') }}"> Registreren </a></li>
+                                <li><a href="{{ base_url('disclaimer') }}"> Disclaimer </a></li>
                             </ul>
                         </div>
 
