@@ -113,19 +113,6 @@ UNLOCK TABLES;
 -- Table structure for table `continents`
 --
 
-DROP TABLE IF EXISTS `continents`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `continents` (
-  `continent_id` int(11) NOT NULL AUTO_INCREMENT,
-  `continent_code` char(4) DEFAULT NULL,
-  `continent_name` varchar(30) DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`continent_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `continents`
