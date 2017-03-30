@@ -312,26 +312,6 @@ INSERT INTO `petition_signatures` VALUES (1,1,3,'2017-03-03 07:44:40','2017-03-0
 /*!40000 ALTER TABLE `petition_signatures` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `petitions`
---
-
-DROP TABLE IF EXISTS `petitions`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `petitions` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `creator_id` int(11) DEFAULT NULL,
-  `category_id` int(11) DEFAULT NULL,
-  `title` varchar(255) DEFAULT NULL,
-  `description` text,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `petitions_title_uindex` (`title`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `petitions`
@@ -414,33 +394,6 @@ UNLOCK TABLES;
 --
 -- Table structure for table `signatures`
 --
-
-DROP TABLE IF EXISTS `signatures`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `signatures` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `publish` varchar(60) DEFAULT NULL,
-  `name` varchar(20) DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `city` varchar(120) DEFAULT NULL,
-  `country` char(4) DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `signatures`
---
-
-LOCK TABLES `signatures` WRITE;
-/*!40000 ALTER TABLE `signatures` DISABLE KEYS */;
-INSERT INTO `signatures` VALUES (1,'','Tim Joosten','Topairy@gmail.com','10','258','2017-03-03 07:42:52','2017-03-03 07:42:52',NULL),(2,'','Tim Joosten','Topairy@gmail.com','10','258','2017-03-03 07:43:13','2017-03-03 07:43:13',NULL),(3,'','Tim Joosten','Topairy@gmail.com','10','258','2017-03-03 07:44:40','2017-03-03 07:44:40',NULL),(4,'Y','Tim Joosten','Topairy','305','270','2017-03-03 07:45:28','2017-03-03 07:45:28',NULL),(5,'','Tim Joosten','topairy@gmail.com','6','270','2017-03-03 10:37:17','2017-03-03 10:37:17',NULL),(6,'Y','test gebruiker','test@gmail.com','8','263','2017-03-03 10:37:44','2017-03-03 10:37:44',NULL);
-/*!40000 ALTER TABLE `signatures` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Dumping data for table `users`
