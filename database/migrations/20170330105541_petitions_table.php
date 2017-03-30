@@ -15,7 +15,7 @@ class PetitionsTable extends AbstractMigration
         $table = $this->table('petitions', ['id' => true, 'primary_key' => 'id']);
         $table->addColumn('creator_id', 'integer');
         $table->addColumn('category_id', 'integer');
-        $table->addColumn('title', ['limit' => 255]);
+        $table->addColumn('title', 'string', ['limit' => 255]);
         $table->addColumn('description', 'text');
         $table->addColumn('updated_at', 'timestamp');
         $table->addColumn('created_at', 'timestamp');
