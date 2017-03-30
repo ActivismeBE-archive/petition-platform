@@ -12,7 +12,7 @@ class CountryTable extends AbstractMigration
      */
     public function up()
     {
-        $table = $this->table('countries', ['id' => true, 'primary_key' => 'id')]);
+        $table = $this->table('countries', ['id' => true, 'primary_key' => 'id']);
         $table->addColumn('currency_id', 'integer');
         $table->addColumn('continent_id', 'integer');
         $table->addColumn('country_code', 'string', ['limit' => 2]);
