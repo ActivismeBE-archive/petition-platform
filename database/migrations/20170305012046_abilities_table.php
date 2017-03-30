@@ -19,10 +19,6 @@ class AbilitiesTable extends AbstractMigration
         $table->addColumn('created_at', 'timestamp');
         $table->addColumn('deleted_at', 'timestamp');
 		$table->create();
-
-          `updated_at` timestamp NULL DEFAULT NULL,
-          `created_at` timestamp NULL DEFAULT NULL,
-          `deleted_at` timestamp NULL DEFAULT NULL,
 	}
 
 	/**

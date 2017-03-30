@@ -519,28 +519,6 @@ INSERT INTO `signatures` VALUES (1,'','Tim Joosten','Topairy@gmail.com','10','25
 UNLOCK TABLES;
 
 --
--- Table structure for table `users`
---
-
-DROP TABLE IF EXISTS `users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ban_id` int(11) DEFAULT '0',
-  `username` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `blocked` varchar(1) DEFAULT NULL,
-  `password` varchar(125) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `users`
 --
 
