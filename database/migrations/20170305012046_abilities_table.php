@@ -12,7 +12,7 @@ class AbilitiesTable extends AbstractMigration
 	 */
     public function up()
 	{
-		$table = $this->table('Questions', ['id' => true, 'primary_key' => 'id']);
+		$table = $this->table('abilities', ['id' => true, 'primary_key' => 'id']);
 		$table->addColumn('name', 'string', ['limit' => 255]);
 		$table->addColumn('description', 'text');
         $table->addColumn('uppdated_at', 'timestamp');
