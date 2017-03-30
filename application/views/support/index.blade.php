@@ -13,7 +13,7 @@
                 <div class="panel-body box-shadow">
                     <div class="page-header" style="margin-top: -20px;">
                         <div class="btn-toolbar pull-right"><div class="btn-group">
-                            <a href="" class="btn btn-default btn-sm"><span aria-hidden="true" class="fa fa-plus"></span> New thread </a>
+                            <a href="{{ base_url('support/create') }}" class="btn btn-default btn-sm"><span aria-hidden="true" class="fa fa-plus"></span> New thread </a>
                         </div>
                     </div>
 

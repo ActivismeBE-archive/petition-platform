@@ -90,6 +90,28 @@ class Comments extends MY_Controller
     }
 
     /**
+     * React on a petitition update.
+     *
+     * @see:url()
+     * @return
+     */
+    public function update()
+    {
+
+    }
+
+    /**
+     * React on a support question.
+     *
+     * @see:url()
+     * @return
+     */
+    public function support()
+    {
+
+    }
+
+    /**
      * Report a comment in the system.
      *
      * @see:url('POST', 'http://www.petities.activisme.be/comments/report/{commentId}')
