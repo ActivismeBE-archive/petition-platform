@@ -1,4 +1,4 @@
-@layout()
+@layout('layouts/app')
 
 @section('content')
 	<div class="row"> {{-- Image --}}
@@ -8,18 +8,18 @@
 		<div class="col-sm-9"> {{-- Content section --}}
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<div class="page-header" style="margin-top: -20px;"> {{-- Page heading --}}
-						<div class="btn-toolbar pull-right">
-							<div class="btn-group">
-								<a href="{{ base_url('support/create') }}" class="btn btn-default btn-sm">
-									<span aria-hidden="true" class="fa fa-plus"></span> New thread
-								</a>
-							</div>
-						</div>
-					</div> {{-- /Page heading --}}
+					<div style="margin-top: -20px;" class='page-header'> {{-- Page header --}}
+						<h2>Stel een nieuwe vraag</h2>
+					</div> {{-- End page header --}}
 
-					{{-- Support question listing --}}
-					{{-- /Support question listing. --}}
+					<form action="" method="post"> {{-- Question form --}}
+						{{-- TODO: Implement csrf token --}}
+
+						<div class="form-group">
+							<label for="subject">Subject: <span class="text-danger">*</span></label>
+							<input type="text" class="form-control" name="title" id="subject" placeholder="Subject">
+						</div>
+					</form> {{-- /Question form --}}
 				</div>
 			</div>
 		</div> {{-- /Content section --}}

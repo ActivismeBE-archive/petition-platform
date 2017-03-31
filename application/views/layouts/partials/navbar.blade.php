@@ -42,6 +42,12 @@
 
                 @if ($this->user)
                     <ul class="nav navbar-nav navbar-right">
+						<li>
+							<a href="">
+								<span class="fa fa-bell-o" aria-hidden="true"></span>
+								<span class="badge">0</span>
+							</a>
+						</li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <span class="fa fa-user" aria-hidden="true"></span> {{ $this->user['name'] }} ({{ $this->user['username'] }}) <span class="caret"></span>
