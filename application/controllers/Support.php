@@ -43,6 +43,8 @@ class Support extends MY_Controller
      */
     protected function middleware()
     {
+        // TODO: Implement the middleware. 
+
         return [];
     }
 
@@ -58,7 +60,7 @@ class Support extends MY_Controller
         $data['categories'] = Category::where('category_module', 'Support')->get();
 
         if (! in_array('Admin', $this->permissions)) {
-            $data['question']   = Question::where('')->get();
+            $data['question']   = Question::where('public', '=', 'N')->get();
 
         } else {
             $data['question']   = Question::all();
@@ -71,31 +73,37 @@ class Support extends MY_Controller
      * Create view for a new petition.
      *
      * @see:url('GET|HEAD', '')
-     * @return
+     * @return Blade view.
      */
     public function create()
     {
+		$data['title']      = 'Nieuwe support vraag.';
+		$data['categories'] = Category::where('category_module', '=', 'support')->get();
 
+		return $this->blade->render('support/create', $data);
     }
 
     /**
      * Store the new support question.
      *
      * @see:url('POST', 'http://www.petities.activisme.be/support/store')
-     * @return
+     * @return Response | Blade view.
      */
     public function store()
     {
-        $this->form_validation->set_rules();
-        $this->form_validation->set_rules();
+        $this->form_validation->set_rules('title', 'Titel', 'trim|required');
+        $this->form_validation->set_rules('deszcription', 'Vraag', 'trim|required');
 
         if ($this->form_validation->run() === false) { // Validation fails
-            $data['title'] = '';
+            $data['title'] = 'Nieuwe support vraag';
 
-            return $this->blade->render('', $data);
+            return $this->blade->render('support/create', $data);
         }
 
         // Validation passes. Move on with our logic.
+		$input['author_id']   = $this->user['id'];
+        $input['title']       = $this->input->post('title');
+        $input['description'] = $this->input->post('description');
 
         $this->security->xss_clean($input);       // NOTE: Sanitize all the inputs.
         $db['create'] = Question::create($input); // NOTE: Support question storage in the db.
@@ -111,11 +119,11 @@ class Support extends MY_Controller
     /**
      * Change the status of a support question.
      *
-     * @see:url()
-     * @return
+     * @see:url('GET|HEAD', 'http://www.petities.activisme.be/support/status')
+     * @return Response|Redirect
      */
     public function status()
     {
-
+    	return redirect($_SERVER['HTTP_REFERER']);
     }
 }
