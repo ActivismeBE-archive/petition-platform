@@ -75,7 +75,9 @@ class Support extends MY_Controller
      */
     public function create()
     {
-		$data['title'] = 'Nieuwe support vraag.';
+		$data['title']      = 'Nieuwe support vraag.';
+		$data['categories'] = Category::where('category_module', '=', 'support')->get();
+
 		return $this->blade->render('support/create', $data);
     }
 

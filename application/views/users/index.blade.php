@@ -50,9 +50,9 @@
                                         <td>{{ $user->created_at }}</td>
 
                                         <td class="pull-right"> {{-- Functions --}}
-                                            <a href="{{ base_url() }}" class="label label-info">Bekijk</a>
-                                            <a href="{{ base_url() }}" class="label label-danger">Blokkeer</a>
-                                            <a href="{{ base_url() }}" class="label label-danger">Verwijder</a>
+                                            <a href="{{ base_url('users/show/' . $user->id) }}" class="label label-info">Bekijk</a>
+                                            <a href="{{ base_url('users/block/' . $user->id) }}" class="label label-danger">Blokkeer</a>
+                                            <a href="{{ base_url('users/delete/' . $user->id) }}" class="label label-danger">Verwijder</a>
                                         </td> {{-- /Functions --}}
                                     </tr>
                                 @endforeach

@@ -46,10 +46,10 @@ class Users extends MY_Controller
     public function index()
     {
         $data['title'] = 'Loginbeheer';
-        $data['db_users'] = Authencate::all();
+        $data['db_users'] = new Authencate;
 
         // Users pagination.
-        $this->pagination->initialize($this->paginator->relation(base_url('users'), count($data['db_users']), 3, 3));
+        $this->pagination->initialize($this->paginator->relation(base_url('users'), count($data['db_users']->all()), 3, 3));
         $data['users']      = $data['db_users']->skip($this->input->get('page'))->take(15)->get();
         $data['users_link'] = $this->pagination->create_links();
 
@@ -85,7 +85,7 @@ class Users extends MY_Controller
     {
         $userId = $this->security->xss_clean($this->uri->segment(3));
 
-        $data['user']  = Authencate::find($id);
+        $data['user']  = Authencate::find($userId);
         $data['title'] = 'Profiel: ' . $data['user']->name . '(' . $data['user']->username . ')';
 
         if ((int) count($data['user']) === 0) {
@@ -97,6 +97,43 @@ class Users extends MY_Controller
 
         return $this->blade->render('users/show', $data);
     }
+
+	/**
+	 *
+	 */
+    public function block()
+	{
+		// TODO: Implement ban reason.
+
+		$param['userid'] = $this->security->xss_clean($this->uri->segment(3));
+		$db['user']      = Authencate::find($param['userId']);
+
+		if ($db['blocked'] && $db['reason']) { // The user is banned.
+			$this->session->set_flashdata('class', 'alert alert-success');
+			$this->session->set_flashdata('message', '');
+		}
+
+		return redirect($_SERVER['HTTP_REFERER']);
+	}
+
+	/**
+	 * Unblock a user in the system.
+	 *
+	 * @see:url('GET|HEAD', 'http://www.activisme.be/users/unblock/{userId}')
+	 * @return Response|redirect
+	 */
+	public function unblock()
+	{
+		$param['userId'] = $this->security->xss_clean($this->uri->segment(3));
+		$db['user']      = Authencate::find($param['userId']);
+
+		if ($db['user']->update(['blocked' => 'N'])) { // User is unblocked in the system.
+			$this->session->set_flashdata('class', 'alert alert-success');
+			$this->session->set_flashdata('message', $db['user']->name . ' is gedeblokkeerd.');
+		}
+
+		return redirect($_SERVER['HTTP_REFERER']);
+	}
 
     /**
      * Delete an user account on the system.
