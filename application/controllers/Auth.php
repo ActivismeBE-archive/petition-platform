@@ -146,7 +146,7 @@ class Auth extends MY_Controller
         $this->form_validation->set_rules('username', 'username', 'trim|required');
         $this->form_validation->set_rules('name', 'name', 'trim|required|is_unique[users.username]');
         $this->form_validation->set_rules('password', 'password', 'trim|required');
-        $this->form_validation->set_rules('email', 'password', 'trim|required|is_unique[users.email]');
+        $this->form_validation->set_rules('email', 'email', 'trim|required|is_unique[users.email]');
         $this->form_validation->set_rules('password_confirmation', 'Password Confirmation', 'required|matches[password]');
 
         if ($this->form_validation->run() == false) {

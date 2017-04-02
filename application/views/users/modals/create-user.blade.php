@@ -55,7 +55,7 @@
                         </label>
 
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" placeholder="Email adres">
+                            <input type="text" name="email" class="form-control" placeholder="Email adres">
                         </div>
                     </div>
 
