@@ -39,9 +39,15 @@
                 @else
                     <div class="list-group">
                         @foreach ($petitions as $petition)
-                            <div class="list-group-item">
+                            <a href="{{ base_url('manifest/show/' . $petition->id) }}" class="list-group-item">
+                                <span class="fa fa-chevron-right" aria-hidden="true"></span>
 
-                            </div>
+                                @if (strlen($petition->title) > 15)
+                                    {{ substr($petition->title, 0, 15) . '...' }}
+                                @else 
+                                    {{ $petition->title }}
+                                @endif
+                            </a>
                         @endforeach
                     </div>
                 @endif
