@@ -75,8 +75,17 @@ class Users extends MY_Controller
         $this->blade->render('users/index', $data);
     }
 
+    /**
+     * Return the data about the user. That user is given in the 3th uri segment.
+     *
+     * @see:url('GET|HEAD', 'http://www.petities.activisme.be/users/getUser/{userid}') 
+     * @return JSON array
+     */
     public function getUser()
     {
+        // BUG: For now the json returns also the password. This is unsafe.
+        //      Remove the password from the json array.
+
         $user = Authencate::find($this->security->xss_clean($this->uri->segment(3)));
 		echo json_encode($user);
     }
@@ -112,6 +121,8 @@ class Users extends MY_Controller
 	 */
     public function block()
 	{
+        // TODO: Implement the ban table into the phinx migrations.
+
         $this->form_validation->set_rules('id', 'Gebruikers ID', 'trim|required');
 		$this->form_validation->set_rules('reason', 'Rede blokkering', 'trim|required');
 
