@@ -99,14 +99,27 @@ class Users extends MY_Controller
     }
 
 	/**
-	 *
+	 * Block a user in the system.
+     *
+     * @see:url('GET|HEAD', 'http://www.petities.activisme.be/users/block/{userId}')
+     * @return Response|Redirect
 	 */
     public function block()
 	{
-		// TODO: Implement ban reason.
+		$this->form_validation->set_rules('reason', 'Rede blokkering', 'trim|required');
 
-		$param['userid'] = $this->security->xss_clean($this->uri->segment(3));
-		$db['user']      = Authencate::find($param['userId']);
+		if ($this->form_validation->run() === false) { // Validation errors.
+            $this->session->set_flashdata('class', 'alert alert-danger');
+            $this->session->set_flashdata('message', 'Wij konden de blokkering niet verwerken.');
+
+            return redirect(base_url('users')); // Validation error so move to the index page.
+        }
+
+        // No validation errors move on with our logic.
+        $param['userid'] = $this->security->xss_clean($this->uri->segment(3));
+
+		$db['user']   = Authencate::find($param['userId']);
+		$db['reason'] = Ban::create($this->security->xss_clean($this->input->post('reason')));
 
 		if ($db['blocked'] && $db['reason']) { // The user is banned.
 			$this->session->set_flashdata('class', 'alert alert-success');

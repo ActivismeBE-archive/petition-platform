@@ -51,7 +51,12 @@
 
                                         <td class="pull-right"> {{-- Functions --}}
                                             <a href="{{ base_url('users/show/' . $user->id) }}" class="label label-info">Bekijk</a>
-                                            <a href="{{ base_url('users/block/' . $user->id) }}" class="label label-danger">Blokkeer</a>
+
+                                            @if () {{-- User is active --}}
+                                                <a href="{{ base_url('users/block/' . $user->id) }}" class="label label-danger">Blokkeer</a>
+                                            @else {{-- User is blocked --}}
+                                            @endif
+
                                             <a href="{{ base_url('users/delete/' . $user->id) }}" class="label label-danger">Verwijder</a>
                                         </td> {{-- /Functions --}}
                                     </tr>
