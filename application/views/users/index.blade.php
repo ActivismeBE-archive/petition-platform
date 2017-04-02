@@ -52,9 +52,10 @@
                                         <td class="pull-right"> {{-- Functions --}}
                                             <a href="{{ base_url('users/show/' . $user->id) }}" class="label label-info">Bekijk</a>
 
-                                            @if () {{-- User is active --}}
-                                                <a href="{{ base_url('users/block/' . $user->id) }}" class="label label-danger">Blokkeer</a>
-                                            @else {{-- User is blocked --}}
+                                            @if ((string) $user->blocked === 'N')
+                                                <a onclick="edit('{{ base_url('users/getUser/' . $user->id) }}')" class="label label-danger">Blokkeer</a>
+                                            @else
+												<a href="{{ base_url('users/unblock/' . $user->id) }}" class="label label-success">Deblokkeer</a>
                                             @endif
 
                                             <a href="{{ base_url('users/delete/' . $user->id) }}" class="label label-danger">Verwijder</a>
@@ -68,4 +69,8 @@
             </div>
         </div>
     </div>
+
+    {{-- Modal Includes --}}
+        @include('users/modals/block-user')
+    {{-- /Modal includes --}}
 @endsection

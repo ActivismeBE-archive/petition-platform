@@ -75,6 +75,12 @@ class Users extends MY_Controller
         $this->blade->render('users/index', $data);
     }
 
+    public function getUser()
+    {
+        $user = Authencate::find($this->security->xss_clean($this->uri->segment(3)));
+		echo json_encode($user);
+    }
+
     /**
      * Show a the specific user data for a account.
      *
@@ -106,6 +112,7 @@ class Users extends MY_Controller
 	 */
     public function block()
 	{
+        $this->form_validation->set_rules('id', 'Gebruikers ID', 'trim|required');
 		$this->form_validation->set_rules('reason', 'Rede blokkering', 'trim|required');
 
 		if ($this->form_validation->run() === false) { // Validation errors.
@@ -116,14 +123,20 @@ class Users extends MY_Controller
         }
 
         // No validation errors move on with our logic.
-        $param['userid'] = $this->security->xss_clean($this->uri->segment(3));
+        $param['userid'] = $this->security->xss_clean($this->input->post('id'));
 
-		$db['user']   = Authencate::find($param['userId']);
-		$db['reason'] = Ban::create($this->security->xss_clean($this->input->post('reason')));
+        $banData = [
+            'reason'      => $this->security->xss_clean($this->input->post('reason')),
+            'executed_by' => $this->user['id'],
+        ];
+
+        $db['user']    = Authencate::find($param['userid']);
+        $db['reason']  = Ban::create($banData);
+		$db['blocked'] = $db['user']->update(['blocked' => 'Y', 'ban_id' => $db['reason']->id]);
 
 		if ($db['blocked'] && $db['reason']) { // The user is banned.
 			$this->session->set_flashdata('class', 'alert alert-success');
-			$this->session->set_flashdata('message', '');
+			$this->session->set_flashdata('message', $db['user']->name. ' is geblokkeerd.');
 		}
 
 		return redirect($_SERVER['HTTP_REFERER']);
@@ -140,7 +153,7 @@ class Users extends MY_Controller
 		$param['userId'] = $this->security->xss_clean($this->uri->segment(3));
 		$db['user']      = Authencate::find($param['userId']);
 
-		if ($db['user']->update(['blocked' => 'N'])) { // User is unblocked in the system.
+		if ($db['user']->update(['blocked' => 'N', 'ban_id' => 0])) { // User is unblocked in the system.
 			$this->session->set_flashdata('class', 'alert alert-success');
 			$this->session->set_flashdata('message', $db['user']->name . ' is gedeblokkeerd.');
 		}

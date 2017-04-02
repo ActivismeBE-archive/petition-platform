@@ -108,6 +108,7 @@
         {{-- Placed in the bottom because the pagespeed Insights --}}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="{{ base_url('assets/js/bootstrap.min.js') }}"></script>
+        <script src="{{ base_url('assets/js/crud-user.js') }}"></script>
 
         {{-- IE10 viewport hack for Surface/desktop Windows 8 bug --}}
         <script src="{{ base_url('assets/js/ie-10-viewport-bug-workaround.js') }}"></script>
