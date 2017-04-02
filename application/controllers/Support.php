@@ -43,6 +43,8 @@ class Support extends MY_Controller
      */
     protected function middleware()
     {
+        // TODO: Implement the middleware. 
+
         return [];
     }
 
@@ -117,11 +119,11 @@ class Support extends MY_Controller
     /**
      * Change the status of a support question.
      *
-     * @see:url()
-     * @return
+     * @see:url('GET|HEAD', 'http://www.petities.activisme.be/support/status')
+     * @return Response|Redirect
      */
     public function status()
     {
-    	//
+    	return redirect($_SERVER['HTTP_REFERER']);
     }
 }

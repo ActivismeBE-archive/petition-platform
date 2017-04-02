@@ -1,10 +1,20 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+
+/**
+ * User management controller.
+ *
+ * @author    Tim Joosten   <Topairy@gmail.com>
+ * @copyright Activisme-BE  <info@activisme.be>
+ * @license:  MIT license
+ * @since     2017
+ * @package   Petitions
+ */
 class Users extends MY_Controller
 {
-    public $user        = []; /** */
-    public $abilities   = []; /** @var array $abilities    The ablities for the authencated user. */
-    public $permissions = []; /** @var array $permissions  The permissions for the authencated user.  */
+    public $user        = []; /** @var array $user         The user information for the authencated user.   */
+    public $abilities   = []; /** @var array $abilities    The ablities for the authencated user.           */
+    public $permissions = []; /** @var array $permissions  The permissions for the authencated user.        */
 
     /**
      * Users constructor.
@@ -34,6 +44,8 @@ class Users extends MY_Controller
      */
     protected function middleware()
     {
+        // TODO: Implement middleware. 
+
         return [];
     }
 
@@ -64,6 +76,8 @@ class Users extends MY_Controller
      */
     public function search()
     {
+        // BUG: The request now is a post. This need to set to GET|HEAD in the form.
+
         $term = $this->security->xss_clean($this->input->get('term'));
 
         $data['title'] = 'Zoekresultaten voor' . $term;
@@ -179,13 +193,22 @@ class Users extends MY_Controller
      * @return Redirect|Response
      */
     public function delete()
-    {
-        $userId = $this->uri->segment(3);
+    { 
+        $userId     = $this->uri->segment(3);
+        $db['user'] = Authencate::find($this->security->xss_clean($userId));
 
-        if (Authencate::find($this->security->xss_clean($userId))) {
-            $this->session->set_flashdata('class', 'alert alert-success');
-            $this->session->set_flashdata('message', 'De gebruiker is verwijderd.');
+        if ((int) $this->user['id'] === $db['user']->id || in_array('Admin', $this->permissions)) { // The user is the user ifself or an admin.
+            if ($db['user']->delete()) { // The user has been deleted. 
+                $class   = 'alert alert-success';
+                $message = 'De gebruiker is verwijderd.';
+            }
+        } else { // The user is not an admin or the user itself.
+            $class   = 'alert-danger';
+            $message = 'U hebt geen machtiging om de gebruiker te verwijderen.';
         }
+
+        $this->session->set_flashdata('class', $class); 
+        $this->session->set_flashdata('message', $message);
 
         return redirect($_SERVER['HTTP_REFERER']);
     }

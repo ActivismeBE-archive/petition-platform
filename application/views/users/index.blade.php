@@ -14,7 +14,7 @@
                 </button>
             </form>
 
-            <a class="pull-right btn btn-sm btn-primary" href="">
+            <a class="pull-right btn btn-sm btn-primary" href="#" data-toggle="modal" data-target="#create">
                 <span class="fa fa-plus" aria-hidden="true"></span> Gebruiker toevoegen
             </a>
         </div>
@@ -72,5 +72,6 @@
 
     {{-- Modal Includes --}}
         @include('users/modals/block-user')
+        @include('users/modals/create-user')
     {{-- /Modal includes --}}
 @endsection
