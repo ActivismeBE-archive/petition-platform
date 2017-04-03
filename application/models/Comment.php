@@ -20,4 +20,16 @@ class Comment extends Model
      * @return array
      */
     protected $fillable = ['comment'];
+
+    /**
+     * Get all the comments on a petition. 
+     *
+     * @return belongsToMany data collection.
+     */
+    public function petitions() 
+    {
+        return $this->belongsToMany('Petitions', 'comments_petitions', 'comment_id', 'manifest_id')
+            ->withPivot('author_id')
+            ->withTimestamps();
+    }
 }
