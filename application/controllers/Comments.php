@@ -64,7 +64,7 @@ class Comments extends MY_Controller
         $petitionId = $this->security->xss_clean($this->uri->segment(3));
         $this->form_validation->set_rules('comment', 'Reactie', 'trim|required');
 
-        if ($this->form_validation->run() === false) { // Validation fails.s
+        if ($this->form_validation->run() === false) { // Validation fails.
             $data['petition']  = Petitions::with('signatures')->find($petitionId);
             $data['countries'] = Countries::all();
             $data['cities']    = Cities::all();
@@ -111,6 +111,12 @@ class Comments extends MY_Controller
 
     }
 
+    /**
+     * Delete a comment in the database.
+     *
+     * @see:url('GET|HEAD', 'http://www.petities.activisme.be/comments/delet/{type}/{commentId}')
+     * @return Redirect|Response
+     */
     public function delete() 
     {
         $param['type']      = $this->uri->segment(3); 
@@ -121,8 +127,34 @@ class Comments extends MY_Controller
         if (Comment::find($param['commentId'])) { // The comment has been found in the system.
             switch ($param['type']) {
                 case 'support':
+                    $query = Comment::with('support')->find($param['commentId'])->toArray();
+                    $user  = $query['support'][0]['pivot']['author_id'];
+
+                    if ((int) $user === $this->user['id'] || in_array('Admin', $this->permissions)) {   // Can delete the comment.
+                        $unconnect = Comment::find($param['commentId'])->support()->sync([]);           // Disconnect the comment from the suupport question. 
+                        $delete    = Comment::find($param['commentId'])->delete();                      // Delete the comment in the database
+
+                        if ($unconnect && $delete) {                                                    // THe comment has been deleted. 
+                            $this->session->set_flashdata('class', 'alert alert-success');
+                            $this->session->set_flashdata('message', 'De reactie is verwijderd');
+                        }
+                    } 
+
                     break;
                 case 'update':
+                    $query = Comment::with('updates')->find($param['commentId'])->toArray();
+                    $user  = $query['updates'][0]['pivot']['author_id'];
+
+                    if ((int) $user === $this->user['id'] || in_array('Admin', $this->permissions)) {   // Can delete the comment.
+                        $unconnect = Comment::find($param['commentId'])->updates()->sync([]);           // Disconnect the comment form the update.
+                        $delete    = Comment::find($param['commentId'])->delete();                      // Delete the comment in the database.
+
+                        if ($unconnect && $delete) {                                                    // Check if the record has been deleted. 
+                            $this->session->set_flashdata('class', 'alert alert-success');
+                            $this->session->set_flashdata('message', 'De reactie is verwijderd');
+                        }
+                    }
+
                     break; 
                 case 'petition':
                     $query = Comment::with('petitions')->find($param['commentId'])->toArray();
@@ -141,7 +173,7 @@ class Comments extends MY_Controller
                     break;
                 default:
                     $this->session->set_flashdata('class', 'alert alert-danger');
-                    $this->session->set_flashdata('Wij konden de reactie niet verwijderen');
+                    $this->session->set_flashdata('message', 'Wij konden de reactie niet verwijderen');
             }
         }
 
@@ -152,7 +184,7 @@ class Comments extends MY_Controller
      * Report a comment in the system.
      *
      * @see:url('POST', 'http://www.petities.activisme.be/comments/report/{commentId}')
-     * @return
+     * @return Response|Redirect
      */
     public function report()
     {
