@@ -173,11 +173,11 @@ class Manifest extends MY_Controller
         }
 
         // Validation passes. Move on with the controller logic.
-        $input['name']    = $this->input->post('name');
-        $input['email']   = $this->input->post('email');
-        $input['city']    = $this->input->post('city');
-        $input['country'] = $this->input->post('country');
-        $input['publish'] = $this->input->post('publish');
+        $input['name']       = $this->input->post('name');
+        $input['email']      = $this->input->post('email');
+        $input['city_id']    = $this->input->post('city');
+        $input['country_id'] = $this->input->post('country');
+        $input['publish']    = $this->input->post('publish');
 
         $MySQL['sign']   = Signature::create($this->security->xss_clean($input));
         $MySQL['assign'] = Petitions::find($petitionId)->signatures()->attach($MySQL['sign']->id);
