@@ -14,7 +14,7 @@
                 </button>
             </form>
 
-            <a class="pull-right btn btn-sm btn-primary" href="">
+            <a class="pull-right btn btn-sm btn-primary" href="#" data-toggle="modal" data-target="#create">
                 <span class="fa fa-plus" aria-hidden="true"></span> Gebruiker toevoegen
             </a>
         </div>
@@ -50,9 +50,15 @@
                                         <td>{{ $user->created_at }}</td>
 
                                         <td class="pull-right"> {{-- Functions --}}
-                                            <a href="{{ base_url() }}" class="label label-info">Bekijk</a>
-                                            <a href="{{ base_url() }}" class="label label-danger">Blokkeer</a>
-                                            <a href="{{ base_url() }}" class="label label-danger">Verwijder</a>
+                                            <a href="{{ base_url('users/show/' . $user->id) }}" class="label label-info">Bekijk</a>
+
+                                            @if ((string) $user->blocked === 'N')
+                                                <a onclick="edit('{{ base_url('users/getUser/' . $user->id) }}')" class="label label-danger">Blokkeer</a>
+                                            @else
+												<a href="{{ base_url('users/unblock/' . $user->id) }}" class="label label-success">Deblokkeer</a>
+                                            @endif
+
+                                            <a href="{{ base_url('users/delete/' . $user->id) }}" class="label label-danger">Verwijder</a>
                                         </td> {{-- /Functions --}}
                                     </tr>
                                 @endforeach
@@ -63,4 +69,9 @@
             </div>
         </div>
     </div>
+
+    {{-- Modal Includes --}}
+        @include('users/modals/block-user')
+        @include('users/modals/create-user')
+    {{-- /Modal includes --}}
 @endsection

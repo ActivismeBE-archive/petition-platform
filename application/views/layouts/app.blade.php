@@ -51,18 +51,18 @@
                         </div>
 
                         <div class="col-md-2 col-sm-6 paddingtop-bottom">
-                            <h6 class="heading7">GENERAL LINKS</h6>
+                            <h6 class="heading7">LINKS</h6>
 
                             <ul class="footer-ul">
-                                <li><a href="#"> Activisme.be </a></li>
-                                <li><a href="#"> Petities </a></li>
-                                <li><a href="#"> Registreren </a></li>
-                                <li><a href="#"> Disclaimer </a></li>
+                                <li><a href="http://www.activisme.be"> Activisme.be </a></li>
+                                <li><a href="http://www.petities.activisme.be"> Petities </a></li>
+                                <li><a href="{{ base_url('auth/register') }}"> Registreren </a></li>
+                                <li><a href="{{ base_url('disclaimer') }}"> Disclaimer </a></li>
                             </ul>
                         </div>
 
                         <div class="col-md-3 col-sm-6 paddingtop-bottom">
-                            <h6 class="heading7">LATEST POST</h6>
+                            <h6 class="heading7">PETITIES</h6>
 
                             <div class="post">
                                 <p>facebook crack the movie advertisment code:what it means for you <span>August 3,2015</span></p>
@@ -108,6 +108,7 @@
         {{-- Placed in the bottom because the pagespeed Insights --}}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="{{ base_url('assets/js/bootstrap.min.js') }}"></script>
+        <script src="{{ base_url('assets/js/crud-user.js') }}"></script>
 
         {{-- IE10 viewport hack for Surface/desktop Windows 8 bug --}}
         <script src="{{ base_url('assets/js/ie-10-viewport-bug-workaround.js') }}"></script>

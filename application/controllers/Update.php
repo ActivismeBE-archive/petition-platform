@@ -55,7 +55,7 @@ class Update extends MY_Controller
     public function index()
     {
         $petitionId       = $this->security->xss_clean($this->uri->segment(3));
-        $data['petition'] = Petitions::with(['comments', 'creator', 'updates'])->find($petitionId);$
+        $data['petition'] = Petitions::with(['comments', 'creator', 'updates'])->find($petitionId);
 
         if ((int) count($data['petition']) === 0) {
             $this->session->set_flashdata('class', 'alert alert-warning');
@@ -71,7 +71,7 @@ class Update extends MY_Controller
         $data['updates']      = $data['petition']->comments()->skip($this->input->get('page'))->take(4)->get();
         $data['updates_link'] = $this->pagination->create_links();
 
-        return $this->blade->render('petitions/updates', $data)
+        return $this->blade->render('petitions/updates', $data);
     }
 
     /**

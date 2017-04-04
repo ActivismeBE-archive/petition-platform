@@ -72,7 +72,7 @@
     	    										</a>
 
     	    										@if (in_array('Admin', $this->permissions) || (int) $comment->pivot->author_id === $this->user['id'])
-                                                        <a href="">
+                                                        <a href="{{ base_url('comments/delete/petition/' . $comment->id) }}">
         	    											<small class="text-danger"><span class="fa fa-close"></span> Verwijder</small>
         	    										</a>
                                                     @endif
