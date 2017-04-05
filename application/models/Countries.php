@@ -9,11 +9,17 @@ class Countries extends Model
 
     protected $primaryKey = 'country_id';
 
+    /**
+     * The database table name. 
+     *
+     * @return string
+     */
     protected $table = 'countries';
 
     /**
-     *
-     * @return
+     * Mass assign fields for the database table. 
+     * 
+     * @return array
      */
     protected $fillable = [];
 }
