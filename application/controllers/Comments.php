@@ -92,23 +92,84 @@ class Comments extends MY_Controller
     /**
      * React on a petition update.
      *
-     * @see:url()
-     * @return
+     * @see:url('POST', 'http://www.petities.activisme.be/comments/update/{type}')
+     * @return Redirect|Response
      */
     public function update()
     {
+        $commentId = $this->security->xss_clean($this->input->post('id'));
+        $this->form_validation->set_rules('comment', 'Reactie', 'trim|required');
 
+        if ($this->form_validation->run() === false) { // Form validation fails. 
+            $this->session->set_flashdata('class', 'alert alert-danger');
+            $this->session->set_flashdata('message', 'Wij konden uw reactie niet aanpassen.');
+
+            return redirect($_SERVER['HTTP_REFERER']);
+        } 
+
+        // No validation errors are found. So move on with our logic.
+        $input['comment'] = $this->input->post('comment');
+
+        switch ($this->security->xss_clean($this->uri->segment(3))) { // Authorization check in database query's.
+            case 'support': // The comment is in the support category. 
+                $user = Comment::with(['support'])->find($commentId)->toArray();
+                $uuid = $user['support'][0]['pivot']['author_id'];
+                break; 
+            case 'update': // The comment is in the petition update category. 
+                $user = Comment::with(['updates'])->find($commentId)->toArray(); 
+                $uuid = $user['updates'][0]['pivot']['author_id'];
+                break;
+            case 'petition': // The comment is in the petition section.
+                $user = Comment::with(['petitions'])->find($commentId)->toArray();
+                $uuid = $user['petitions'][0]['pivot']['author_id'];
+                break; 
+            default:
+                return redirect($_SERVER['HTTP_REFERER']);
+        }
+
+        if ((int) $uuid === $this->user['id'] || in_array('Admin', $this->permissions)) { // The user is the author or admin.
+            if (Comment::find($commentId)->update($this->security->xss_clean($input))) { // Comment has been updated.
+                $this->session->set_flashdata('class', 'alert alert-success');
+                $this->session->set_flashdata('message', 'Uw reactie is aangepast');
+            }
+        } else {
+            $this->session->set_flashdata('class', 'alert alert-danger');
+            $this->session->set_flashdata('message', 'U hebt niet de machtiging om de reactie te wijzigen');
+        }
+
+        return redirect($_SERVER['HTTP_REFERER']);
     }
 
     /**
      * React on a support question.
      *
-     * @see:url()
-     * @return
+     * @see:url('POST', 'http://www.petities.activisme.be/comments/support/{questionId}')
+     * @return Redirect|Response
      */
     public function support()
     {
+        $supportId = $this->security->xss_clean($this->uri->segment(3));
+        $this->form_validation->set_rules('comment', 'Reactie', 'trim|required');
 
+        if ($this->form_validation->run() === false) { // Form validation fails.
+            $data['question'] = Question::find($supportId);
+            $data['data']     = $data['question']->title;
+
+            return $this->blade->render('support/show', $data);
+        }
+
+        // No validation errors are found. Move on with our logic. 
+        $comment = $this->input->post('comment');
+
+        $db['insert']   = Comment::crate($this->security->xss_clean($comment)); 
+        $db['relation'] = Comment::find($db['insert']->id)->support()->attach($supportId);
+
+        if ($db['insert'] && $db['relation']) { // Record has been created
+            $this->session->set_flashdata('class', 'alert alert-success');
+            $this->session->set_flashdata('message', 'Uw reactie is opgeslagen.');
+        }
+
+        return redirect($_SERVER['HTTP_REFERER']);
     }
 
     /**

@@ -32,4 +32,24 @@ class Comment extends Model
             ->withPivot('author_id')
             ->withTimestamps();
     }
+
+    /**
+     *
+     *
+     * 
+     */
+    public function updates() 
+    {
+
+    }
+
+    /**
+     *
+     *
+     * @return belongsToMany data collection. 
+     */
+    public function support() 
+    {
+
+    }
 }

@@ -21,11 +21,17 @@ class Signature extends Model
      */
     protected $fillable = ['publish', 'name', 'email', 'city_id', 'country_id'];
 
+    /**
+     * @todo: Implement docblock.
+     */
     public function cityRel()
     {
         return $this->belongsTo('Cities', 'city_id');
     }
 
+    /**
+     * @todo: Implement docblock
+     */
     public function countryRel()
     {
         return $this->belongsTo('Countries', 'country_id');

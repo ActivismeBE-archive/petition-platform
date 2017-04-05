@@ -43,7 +43,7 @@ class Account extends MY_Controller
      */
     protected function middleware()
     {
-        return [];
+        return ['auth']; // TODO: Build up the auth middleware. 
     }
 
     /**
@@ -70,6 +70,9 @@ class Account extends MY_Controller
      */
     public function update()
     {
+        // TODO: Implement the missing database columns. 
+        // TODO: Implement the validation errors in the view.  
+
         $this->form_validation->set_rules('username', 'username', 'trim|required');
         $this->form_validation->set_rules('name', 'name', 'trim|required|is_unique[users.username]');
         $this->form_validation->set_rules('email', 'password', 'trim|required|is_unique[users.email]');
@@ -83,15 +86,16 @@ class Account extends MY_Controller
             $data['countries'] = Countries::all();
             $data['title']     = $data['user']->name;
 
-            return $this->blade->render('', $data);
+            return $this->blade->render('auth/settings', $data);
         }
 
         // No validation errors found. So move on with the logic.
-        $data['birth_date']     = $this->input->post('birth_date');
-        $data['birth_place']    = $this->input->post('birth_place');
-        $data['resident_city']  = $this->input->post('resident_city');
+        $input
+        $input['birth_date']     = $this->input->post('day') . '/' . $this->input->post('month') . '/' . $this->input->post('year');
 
-        if (Authencate::find($this->usser['id'])->update($this->security->xss_clean($input))) {
+        if (Authencate::find($this->usser['id'])->update($this->security->xss_clean($input))) { // The user has been updated. 
+            // TODO: Refresh the session. 
+
             $this->session->set_flashdata('class', 'alert alert-success');
             $this->session->set_flashdata('message', 'Uw instelling zijn gewijzigd.');
         }
@@ -103,7 +107,7 @@ class Account extends MY_Controller
      * Delete some account out the system.
      *
      * @see:url('GET|HEAD', 'http://www.petities.activisme.be/account/delete/{id}')
-     * @return redirect
+     * @return Redirect|Response
      */
     public function delete()
     {

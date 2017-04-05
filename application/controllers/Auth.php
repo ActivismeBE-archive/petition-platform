@@ -77,7 +77,7 @@ class Auth extends MY_Controller
      */
 	public function check_database($password)
 	{
-        // BUG: MD5 is insecure. Replace it with a better hashing.
+        // FIXME: MD5 is insecure. Replace it with a better hashing.
 
         $input['email'] = $this->security->xss_clean($this->input->post('email'));
         $MySQL['user']  = Authencate::where('email', $input['email'])

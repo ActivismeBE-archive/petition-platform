@@ -5,7 +5,7 @@ function edit(hyperlink) {
     $.ajax({
         url      : hyperlink,
         type     : 'GET',
-        dataType : "JSON",
+        dataType : 'JSON',
         success  : function (data) {
             // console.log(data);
             $('[name="id"]').val(data.id);
@@ -17,6 +17,20 @@ function edit(hyperlink) {
 
         error : function (jqXHR, textStatus, errorThrown) {
             alert('Error get data from ajax');
+        }
+    });
+}
+
+function editComment(hyperlink) {
+    $('#form')[0].reset(); // Reset form on modals. 
+
+    // AJAX load data form ajax. 
+    $.ajax({
+        url         : hyperlink,
+        type        : 'GET',
+        dataType    : 'JSON',
+        success     : function(data) {
+            // console.log(data);
         }
     });
 }

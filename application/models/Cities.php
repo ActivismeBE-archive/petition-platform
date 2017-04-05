@@ -7,9 +7,23 @@ class Cities extends Model
 {
     use SoftDeletes;
 
+    /**
+     *
+     * 
+     */
     protected $primaryKey = 'city_id';
 
+    /**
+     * The database table field. 
+     *
+     * @return string
+     */
     protected $table = 'cities';
 
+    /**
+     * Mass-assign database fields. 
+     *
+     * @return array 
+     */
     protected $fillable = [];
 }

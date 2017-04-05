@@ -28,19 +28,35 @@
                                 </label>
 
                                 <div class="col-md-2">
-                                    <select class="form-control" name="">
+                                    <select class="form-control" name="day">
                                         <option value="">-- Dag --</option>
+
+                                        @for($day = 1; $day < 32; $day++)
+                                            <option value="{{ $day }}">{{ $day }}</option>
+                                        @endfor
                                     </select>
                                 </div>
 
                                 <div class="col-md-2">
-                                    <select class="form-control" name="">
+                                    <select class="form-control" name="month">
                                         <option value="">-- Maand --</option>
+                                        <option value="01">Janauri</option>
+                                        <option value="02">Februari</option>
+                                        <option value="03">Maart</option>
+                                        <option value="04">April</option>
+                                        <option value="05">Mei</option>
+                                        <option value="06">Juni</option>
+                                        <option value="07">Juli</option>
+                                        <option value="08">Augustus</option>
+                                        <option value="09">September</option>
+                                        <option value="10">Oktober</option>
+                                        <option value="11">November</option>
+                                        <option value="12">December</option>
                                     </select>
                                 </div>
 
                                 <div class="col-md-2">
-                                    <select class="form-control" name="">
+                                    <select class="form-control" name="year">
                                         <option value="">-- Jaar --</option>
                                     </select>
                                 </div>
@@ -86,7 +102,7 @@
                                 </label>
 
                                 <div class="col-md-6">
-                                    <select name="" class="form-control">
+                                    <select name="city" class="form-control">
                                         <option value="">-- Selecteer je stad --</option>
 
                                         @foreach ($cities as $city)

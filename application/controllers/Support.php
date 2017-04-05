@@ -43,9 +43,7 @@ class Support extends MY_Controller
      */
     protected function middleware()
     {
-        // TODO: Implement the middleware. 
-
-        return [];
+        return ['auth']; // TODO: Build up the auth middleware. 
     }
 
     /**
@@ -105,8 +103,8 @@ class Support extends MY_Controller
         $input['title']       = $this->input->post('title');
         $input['description'] = $this->input->post('description');
 
-        $this->security->xss_clean($input);       // NOTE: Sanitize all the inputs.
-        $db['create'] = Question::create($input); // NOTE: Support question storage in the db.
+        $this->security->xss_clean($input);       // Sanitize all the inputs.
+        $db['create'] = Question::create($input); // Support question storage in the db.
 
         if ($db['create']) { // Support question has been stored.
             $this->session->set_flashdata('class', 'alert alert-success');
