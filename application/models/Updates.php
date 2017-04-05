@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Updates extends Model
 {
+    // TODO: create updates database table. <https://github.com/Tjoosten/petition/issues/20>
+    
     use SoftDeletes;
 
     /**

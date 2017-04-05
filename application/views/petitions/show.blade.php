@@ -13,7 +13,7 @@
 
     <div class="row row-padding">
         <div class="col-md-9">
-            <div class="panel panel-default">
+            <div class="panel panel-default"> {{-- Petition panel --}}
                 <div class="panel-body">
                     {{-- Petition manifest --}}
                         <div style="margin-top: -20px;" class="page-header">
@@ -44,7 +44,54 @@
                         {{ $petition->description }}
                     {{-- /Petition manifest --}}
                 </div>
-            </div>
+            </div> {{-- /petition panel --}}
+
+            {{-- TODO: Make dynamic --}}
+            {{-- TODO: add if else check --}}
+            <div class="panel panel-info"> {{-- Petition updates --}}
+                <div class="panel-heading">Laatste updates: <a href="" class="pull-right label label-primary">Alle updates</a></div>
+
+                <div class="panel-body">
+                
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <a href="" style="text-decoration: none;" class="thumbnail">
+                                <div class="caption">
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, soluta, 
+                                        eligendi doloribus sunt minus amet sit debitis repellat. Consectetur, culpa itaque odio similique suscip
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-md-4">
+                            <a href="" style="text-decoration: none;" class="thumbnail">
+                                <div class="caption">
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, soluta, 
+                                        eligendi doloribus sunt minus amet sit debitis repellat. Consectetur, culpa itaque odio similique suscip
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-md-4">
+                            <a href="" style="text-decoration: none;" class="thumbnail">
+                                <div class="caption">
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, soluta, 
+                                        eligendi doloribus sunt minus amet sit debitis repellat. Consectetur, culpa itaque odio similique suscip
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+
+                    </div><!--/row-->
+
+                </div>
+            </div> {{-- /Petition updates --}}
 
 			<hr>
 

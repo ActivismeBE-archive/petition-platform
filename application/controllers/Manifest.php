@@ -72,7 +72,7 @@ class Manifest extends MY_Controller
     public function show()
     {
         $petitionId        = $this->security->xss_clean($this->uri->segment(3));
-        $data['petition']  = Petitions::with(['comments', 'creator'])->find($petitionId);
+        $data['petition']  = Petitions::with(['comments', 'creator', 'updates'])->find($petitionId);
         $data['title']     = $data['petition']->title;
         $data['countries'] = Countries::all();
         $data['cities']    = Cities::all();

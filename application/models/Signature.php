@@ -30,7 +30,9 @@ class Signature extends Model
     }
 
     /**
-     * @todo: Implement docblock
+     * Return the country information through the relation. 
+     * 
+     * @return belongsTo instance. 
      */
     public function countryRel()
     {
