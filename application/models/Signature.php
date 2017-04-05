@@ -3,6 +3,15 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * Signature Model.
+ *
+ * @author    Tim Joosten   <Topairy@gmail.com>
+ * @copyright Activisme-BE  <info@activisme.be>
+ * @license:  MIT license
+ * @since     2017
+ * @package   Petitions
+ */
 class Signature extends Model
 {
     use SoftDeletes;
@@ -22,7 +31,9 @@ class Signature extends Model
     protected $fillable = ['publish', 'name', 'email', 'city_id', 'country_id'];
 
     /**
-     * @todo: Implement docblock.
+     * Return the city information through the relation. 
+     *
+     * @return belongsTo instance. 
      */
     public function cityRel()
     {
