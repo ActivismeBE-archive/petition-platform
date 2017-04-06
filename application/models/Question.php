@@ -14,5 +14,27 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Question extends Model
 {
-    
+	/**
+	 * The database table name. 
+	 *
+	 * @return string
+	 */
+	protected $table = 'questions';
+
+	/**
+	 * Mass-assign fields for the database. 
+	 *
+	 * @return array
+	 */
+ 	protected $fillable = ['author_id', 'title', 'description'];
+
+ 	/**
+ 	 * Get the categories for the support question. 
+ 	 *  
+ 	 * @return belongsToMany instance. 
+ 	 */
+ 	public function catgories() 
+ 	{
+ 		return $this->belongsToMany('', '', '', '')->withTimestamps();
+ 	}   
 }

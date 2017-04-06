@@ -263,7 +263,7 @@ class Comments extends MY_Controller
         $input['reason_id']   = $this->input->post('reason');
         $input['description'] = $this->input->post('description');
 
-        if (Reports::create($this->security->xss_clean($input))) {
+        if (Reports::create($this->security->xss_clean($input))) { // The database record has been deleted.
             $this->session->set_flashdata('class', 'alert alert-success');
             $this->session->set_flashdata('message', 'De rapportering is opgeslagen.');
         }

@@ -11,12 +11,20 @@
  */
 class Manifest extends MY_Controller
 {
+    // TODO: [V1.0.0-RC1] Create function that export the signatures to pdf. 
+    // TODO: [V1.0.0-RC1] Create function that returns the petition id. This is needed for the ajax calls. 
+    // TODO: [V1.0.0-RC1] Register the auth middleware. In the middleware function. 
+    // TODO: [V1.0.0-RC2] Register language files to the controller titles and flash messages. 
+    // TODO: [V1.0.0-RC2] Register language files to the views.
+
     public $user        = [];   /** @var array $user         The userdata about the authencated user.  */
     public $permissions = [];   /** @var array $permissions  The authencated user permissions.         */
     public $abilities   = [];   /** @var array $abilities    The authencated user abilities.           */
 
 	/**
 	 * Manifest constructor.
+     * 
+     * @return int|void|null
 	 */
 	public function __construct()
 	{
@@ -41,7 +49,7 @@ class Manifest extends MY_Controller
      */
     protected function middleware()
     {
-        return [];
+        return []; // TODO: Build up the authencation middleware protection.
     }
 
     /**
@@ -53,8 +61,8 @@ class Manifest extends MY_Controller
 	public function index()
 	{
         $data['title']    = 'Manifest backend';
-        $data['recent']   = Petitions::all();
-        $data['popular']  = Petitions::all();
+        $data['recent']   = Petitions::all(); // TODO: Build up the where statements for the query. 
+        $data['popular']  = Petitions::all(); // TODO: Build up the where statements for the query; 
 
         if ($this->user) {
             $data['userPetitions'] = Petitions::where('creator_id', $this->user['id'])->get();
@@ -71,8 +79,10 @@ class Manifest extends MY_Controller
      */
     public function show()
     {
+        $updateCriteria = function ($query) { $query->take(3); }; // Anonymous function call for the relation query data;
+
         $petitionId        = $this->security->xss_clean($this->uri->segment(3));
-        $data['petition']  = Petitions::with(['comments', 'creator', 'updates'])->find($petitionId);
+        $data['petition']  = Petitions::with(['comments', 'creator', 'updates' => $updateCriteria])->find($petitionId);
         $data['title']     = $data['petition']->title;
         $data['countries'] = Countries::all();
         $data['cities']    = Cities::all();
@@ -218,7 +228,7 @@ class Manifest extends MY_Controller
 	{
         $manifestId = $this->uri->segment(3);
 
-        if (Petitions::find($manifestId)->delete()) {
+        if (Petitions::find($manifestId)->delete()) { // The record has been deleted.
             $this->session->set_flashdata('class', 'alert alert-success');
             $this->session->set_flashdata('message', 'De petitie is verwijderd');
         }

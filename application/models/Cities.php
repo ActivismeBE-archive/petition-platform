@@ -8,7 +8,7 @@ class Cities extends Model
     use SoftDeletes;
 
     /**
-     *
+     * 
      * 
      */
     protected $primaryKey = 'city_id';

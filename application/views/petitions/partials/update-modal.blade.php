@@ -9,7 +9,10 @@
             </div>
 
             <div class="modal-body">
-                <form class="form-horizontal" action="index.html" method="post">
+                <form class="form-horizontal" action="{{ base_url('update/insert') }}" method="post">
+                    {{-- TODO: Implement csrf token --}}
+                    <input type="hidden" value="" name="petitionId">
+
                     <div class="form-group">
                         <label class="control-label col-md-3">
                             Titel: <span class="text-danger">*</span>
@@ -32,7 +35,7 @@
 
                     <div class="form-group">
                         <div class="col-md-offset-3 col-md-9">
-                            <button type="submit" form="update-form" class="btn btn-sm btn-success">
+                            <button type="submit" class="btn btn-sm btn-success">
                                 <span class="fa fa-check" aria-hidden="true"></span> Invoegen
                             </button>
 

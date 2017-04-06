@@ -58,7 +58,7 @@ class Petitions extends Model
      */
     public function updates()
     {
-        return $this->belongsToMany('Updates', 'petition_updates', 'petition_id', 'signature_id')
+        return $this->belongsToMany('Updates', 'petition_updates', 'petition_id', 'update_id')
             ->withTimestamps();
     }
 

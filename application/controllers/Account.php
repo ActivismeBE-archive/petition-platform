@@ -97,7 +97,7 @@ class Account extends MY_Controller
             // TODO: Refresh the session. 
 
             $this->session->set_flashdata('class', 'alert alert-success');
-            $this->session->set_flashdata('message', 'Uw instelling zijn gewijzigd.');
+            $this->session->set_flashdata('message', 'Uw instellingen zijn gewijzigd.');
         }
 
         return redirect($_SERVER['HTTP_REFERER']);
