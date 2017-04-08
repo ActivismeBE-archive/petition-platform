@@ -29,7 +29,17 @@
 
 						<h4>Describe your question by selecting tags.</h4>
 
-						{{-- TODO: Implement category section --}}
+						@if ((int) count($categories) > 0)
+							@foreach ($categories as $tag)
+								<label style="padding-right: 8px;">
+									<input name="tags[]" type="checkbox"> {{ $tag->name }}
+								</label>
+							@endforeach
+						@else
+							<div class="alert alert-warning" role="alert">
+								Er zijn geen categorieen gevonden.
+							</div>
+						@endif
 
 						{{-- Submit & reset form-group --}}
 						<div class="form-group">
@@ -65,7 +75,7 @@
 				<div class="panel-heading"><span class="fa fa-tags" aria-hidden="true"></span> Categories:</div>
 
 				<div class="panel-body">
-					@if (count($categories) === 0)
+					@if ((int) count($categories) === 0)
 						<small><i>(Er zijn geen categories gevonden)</i></small>
 					@else
 						@foreach ($categories as $category)
