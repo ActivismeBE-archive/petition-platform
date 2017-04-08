@@ -3,13 +3,23 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * Cities Model.
+ *
+ * @author    Tim Joosten   <Topairy@gmail.com>
+ * @copyright Activisme-BE  <info@activisme.be>
+ * @license:  MIT license
+ * @since     2017
+ * @package   Petitions
+ */
 class Cities extends Model
 {
     use SoftDeletes;
 
     /**
-     * 
-     * 
+     * The primary key for the database. 
+     *
+     * @return string
      */
     protected $primaryKey = 'city_id';
 

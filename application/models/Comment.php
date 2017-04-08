@@ -34,13 +34,15 @@ class Comment extends Model
     }
 
     /**
+     * Get the comments for updates. 
      *
-     *
-     * 
+     * @return belongsToMany data relation 
      */
     public function updates() 
     {
-
+        return $this->belongsToMany('', '', '', '')
+            ->withPivot('author_id')
+            ->withTimestamps();
     }
 
     /**
@@ -50,6 +52,8 @@ class Comment extends Model
      */
     public function support() 
     {
-
+        return $this->belongsToMany('', '', '', '')
+            ->withPivot('author_id')
+            ->withTimestamps();
     }
 }
