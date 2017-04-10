@@ -25,7 +25,11 @@
 
                                     <ul class="dropdown-menu">
                                         @if ($petition->creator_id === $this->user['id'])
-                                            <li><a href="#" data-toggle="modal" data-target="#update"><span class="fa fa-plus" aria-hidden="true"></span> Schrijf een update</a></li>
+                                            <li>
+                                                <a onclick="getDataById('{{ base_url('manifest/getById/' . $petition->id) }}', 'update')" >
+                                                    <span class="fa fa-plus" aria-hidden="true"></span> Schrijf een update
+                                                </a>
+                                            </li>
                                         @endif
 
                                         <li><a href="{{ base_url() }}"><span class="fa fa-info-circle" aria-hidden="true"></span> Updates</a></li>

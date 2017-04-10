@@ -218,6 +218,50 @@ class Manifest extends MY_Controller
         return $this->blade->render('petitions/signatures', $data);
     }
 
+    /**
+     * Get a petition by his id. Needed for AJAX resquests. 
+     * 
+     * @see:url('GET|HEAD', 'http://www.petities.activisme.be/manifest/getById/{petitionId}')
+     * @return JSON Response
+     */
+    public function getById() 
+    {
+        echo json_encode(Petitions::find($this->security->xss_clean($this->uri->segment(3))));
+    }
+
+    /**
+     * Determine the status for the petition. 
+     *
+     * @see:url('GET|HEAD', 'http://www.petities.activisme.be/manifest/status/{status}/{manifestId}')
+     * @return Redirect
+     */
+    public function status() 
+    {
+        $petitionId = $this->security->xss_clean($this->uri->segment(4));
+
+        switch ($this->security->xss_clean($this->uri->segment(3))) {
+            case 'close': // The petition is closed
+                if ($petition = Manifest::find($petitionId)->update(['active' => 'Y', 'closed_at' => date('Y-m-d H:i:s')])) {
+                    $this->session->set_flashdata('class', 'alert alert-success');
+                    $this->session->set_flashdata('message', 'De petitie is gesloten');
+                }
+
+                break;
+            case 'reopen': // The petition is re-opened
+                if ($petition = Manifest::find($petitionId)->update(['active' => 'N', 'closed_at' => ''])) {
+                    $this->session->set_flashdata('class', 'alert alert-success'); 
+                    $this->session->set_flashdata('message', 'De petitie is heropend');
+                }
+
+                break; 
+            default: // Could not determine the handling>. 
+                $this->session->set_flashdata('class', 'alert alert-danger'); 
+                $this->session->set_flashdata('message', 'Wij konden de handeling niet uitvoeren door een interne fout.');
+        }
+
+        return redirect($_SERVER['HTTP_REFERER']);
+    }
+
 	/**
 	 * Delete a specific petition.
 	 *
@@ -228,7 +272,7 @@ class Manifest extends MY_Controller
 	{
         $manifestId = $this->uri->segment(3);
 
-        if (Petitions::find($manifestId)->delete()) { // The record has been deleted.
+        if (Petitions::find($this->security->xss_clean($manifestId))->delete()) { // The record has been deleted.
             $this->session->set_flashdata('class', 'alert alert-success');
             $this->session->set_flashdata('message', 'De petitie is verwijderd');
         }

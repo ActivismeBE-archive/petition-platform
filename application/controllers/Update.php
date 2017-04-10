@@ -92,7 +92,7 @@ class Update extends MY_Controller
             return redirect($_SERVER['HTTP_REFERER']);
         }
 
-        $petitionId = $this->security->xss_clean($this->input->post('petitionId'));
+        $petitionId = $this->security->xss_clean($this->input->post('id'));
 
         // No validation errors found. So move on with the logic.
         $input['author_id']   = $this->user['id'];

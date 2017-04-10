@@ -11,7 +11,7 @@
             <div class="modal-body">
                 <form class="form-horizontal" action="{{ base_url('update/insert') }}" method="post">
                     {{-- TODO: Implement csrf token --}}
-                    <input type="hidden" value="" name="petitionId">
+                    <input type="hidden" value="" name="id">
 
                     <div class="form-group">
                         <label class="control-label col-md-3">
