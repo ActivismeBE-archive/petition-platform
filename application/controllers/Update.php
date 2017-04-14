@@ -100,7 +100,7 @@ class Update extends MY_Controller
         $input['description'] = $this->input->post('description');
 
         // Database operations.
-        $MySQL['create'] = Updates::create($this->security->xss_clean($input));
+        $MySQL['create'] = PetitionUpdates::create($this->security->xss_clean($input));
         $MySQL['assign'] = Petitions::find($petitionId)->updates()->attach($MySQL['create']->id);
 
         if ($MySQL['assign'] && $MySQL['create']) { // Rel assign and input >>> OK

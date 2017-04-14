@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @since     2017
  * @package   Petitions
  */
-class Updates extends Model
+class PetitionUpdates extends Model
 {
     use SoftDeletes;
 

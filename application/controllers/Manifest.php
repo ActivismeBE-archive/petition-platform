@@ -79,10 +79,9 @@ class Manifest extends MY_Controller
      */
     public function show()
     {
-        $updateCriteria = function ($query) { $query->take(3); }; // Anonymous function call for the relation query data;
-
         $petitionId        = $this->security->xss_clean($this->uri->segment(3));
-        $data['petition']  = Petitions::with(['comments', 'creator', 'updates' => $updateCriteria])->find($petitionId);
+
+        $data['petition']  = Petitions::with(['comments', 'creator', 'updates'])->find($petitionId);
         $data['title']     = $data['petition']->title;
         $data['countries'] = Countries::all();
         $data['cities']    = Cities::all();
@@ -91,6 +90,11 @@ class Manifest extends MY_Controller
             $this->session->set_flashdata('class', 'alert alert-danger');
             $this->session->set_flashdata('message', 'Er is geen petitie gevonden met de id #'. $petitionId);
         }
+
+        // \Illuminate\Database\Capsule\Manager::enableQueryLog();
+        // Petitions::with(['updates'])->find($petitionId);
+        // dump(\Illuminate\Database\Capsule\Manager::getQueryLog());
+
 
         // Comments
         $this->pagination->initialize($this->paginator->relation(base_url('manifest/show/' . $data['petition']->id), $data['petition']->comments()->count(), 4, 4));
