@@ -378,12 +378,12 @@ $config['encryption_key'] = '';
 |
 */
 $config['sess_driver'] = 'database';
-$config['sess_cookie_name'] = 'ci_session';
+$config['sess_cookie_name'] = 'sessions_petitions';
 $config['sess_expiration'] = 7200;
-$config['sess_save_path'] = 'sessions';
+$config['sess_save_path'] = 'sessions_petitions';
 $config['sess_match_ip'] = TRUE;
 $config['sess_time_to_update'] = 300;
-$config['sess_regenerate_destroy'] = false;
+$config['sess_regenerate_destroy'] = true;
 
 /*
 |--------------------------------------------------------------------------

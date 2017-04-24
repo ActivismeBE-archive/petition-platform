@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Petitions extends Model
 {
-    use SoftDeletes;
+    // use SoftDeletes;
 
     /**
      * Database table
