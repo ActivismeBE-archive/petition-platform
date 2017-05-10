@@ -21,7 +21,7 @@ class PetitionUpdates extends Model
      *
      * @return string
      */
-    protected $table = 'updates';
+    protected $table = 'petition_update';
 
     /**
      * Mass assign fields for the database.

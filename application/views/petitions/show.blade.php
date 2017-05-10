@@ -50,12 +50,12 @@
                 </div>
             </div> {{-- /petition panel --}}
 
-                <div class="panel panel-info"> {{-- Petition updates --}}
+                @if ((int) count($petition->updates) > 0)
+                    <div class="panel panel-info"> {{-- Petition updates --}}
                     <div class="panel-heading">Laatste updates: <a href="" class="pull-right label label-primary">Alle updates</a></div>
 
                     <div class="panel-body">
                         <div class="row">
-                        {{ dump($petition->updates) }}
                             @foreach ($petition->updates() as $update)
                                 <div class="col-md-4">
                                     <a href="" style="text-decoration: none;" class="thumbnail">
@@ -68,6 +68,7 @@
                         </div><!--/row-->
                     </div>
                 </div> {{-- /Petition updates --}}
+                @endif
 
 			<hr>
 
