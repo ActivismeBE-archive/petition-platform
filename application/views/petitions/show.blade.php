@@ -19,6 +19,12 @@
                         <div style="margin-top: -20px;" class="page-header">
                             <div class="pull-right">
                                 <div class="dropdown">
+                                    @if ($petition->creator_id === $this->user['id'] || in_array('Admin', $this->permissions))
+                                        <a href="{{ site_url('manifest/delete/' . $petition->id) }}" class="btn btn-sm btn-danger">
+                                            <span class="fa fa-close" aria-hidden="true"></span> Verwijderen
+                                        </a>
+                                    @endif
+
                                     <button class='btn btn-sm btn-info dropdown-toggle' data-toggle="dropdown" type="button">
                                         <span class="fa fa-info-circle" aria-hidden="true"></span> Informatie <span class="caret"></span>
                                     </button>
