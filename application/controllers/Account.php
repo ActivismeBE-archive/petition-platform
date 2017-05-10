@@ -43,7 +43,7 @@ class Account extends MY_Controller
      */
     protected function middleware()
     {
-        return ['auth']; // TODO: Build up the auth middleware. 
+        return ['auth']; // TODO: Build up the auth middleware.
     }
 
     /**
@@ -70,8 +70,8 @@ class Account extends MY_Controller
      */
     public function update()
     {
-        // TODO: Implement the missing database columns. 
-        // TODO: Implement the validation errors in the view.  
+        // TODO: Implement the missing database columns.
+        // TODO: Implement the validation errors in the view.
 
         $this->form_validation->set_rules('username', 'username', 'trim|required');
         $this->form_validation->set_rules('name', 'name', 'trim|required|is_unique[users.username]');
@@ -90,11 +90,10 @@ class Account extends MY_Controller
         }
 
         // No validation errors found. So move on with the logic.
-        $input
         $input['birth_date']     = $this->input->post('day') . '/' . $this->input->post('month') . '/' . $this->input->post('year');
 
-        if (Authencate::find($this->usser['id'])->update($this->security->xss_clean($input))) { // The user has been updated. 
-            // TODO: Refresh the session. 
+        if (Authencate::find($this->usser['id'])->update($this->security->xss_clean($input))) { // The user has been updated.
+            // TODO: Refresh the session.
 
             $this->session->set_flashdata('class', 'alert alert-success');
             $this->session->set_flashdata('message', 'Uw instellingen zijn gewijzigd.');
