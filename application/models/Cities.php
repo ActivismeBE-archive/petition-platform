@@ -17,23 +17,23 @@ class Cities extends Model
     use SoftDeletes;
 
     /**
-     * The primary key for the database. 
+     * The primary key for the database.
      *
      * @return string
      */
-    protected $primaryKey = 'city_id';
+    protected $primaryKey = 'id';
 
     /**
-     * The database table field. 
+     * The database table field.
      *
      * @return string
      */
     protected $table = 'cities';
 
     /**
-     * Mass-assign database fields. 
+     * Mass-assign database fields.
      *
-     * @return array 
+     * @return array
      */
     protected $fillable = [];
 }
