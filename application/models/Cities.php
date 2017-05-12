@@ -35,5 +35,5 @@ class Cities extends Model
      *
      * @return array
      */
-    protected $fillable = [];
+    protected $fillable = ['city_name', 'lat_num', 'lng_num', 'province_id', 'postal_code'];
 }
