@@ -22,3 +22,9 @@ ALTER TABLE activisme_dev.types             CHANGE `deleted_at` `deleted_at` TIM
 ALTER TABLE activisme_dev.users             CHANGE `deleted_at` `deleted_at` TIMESTAMP  NULL DEFAULT NULL;
 ALTER TABLE activisme_dev.volunteer_groups  CHANGE `deleted_at` `deleted_at` TIMESTAMP  NULL DEFAULT NULL;
 ALTER TABLE activisme_dev.vrijwilligers     CHANGE `deleted_at` `deleted_at` TIMESTAMP  NULL DEFAULT NULL;
+
+-- Implement missing database columns on the users table.
+ALTER TABLE activisme_dev.users ADD birth_date VARCHAR(255) NULL;
+ALTER TABLE activisme_dev.users ADD address    VARCHAR(255) NULL;
+ALTER TABLE activisme_dev.users ADD city       INT(5)       NULL;
+ALTER TABLE activisme_dev.users ADD country    INT(5)       NULL;
