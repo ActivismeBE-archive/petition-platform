@@ -13,15 +13,17 @@ user_guide_src/cilexer/build/*
 user_guide_src/cilexer/dist/*
 user_guide_src/cilexer/pycilexer.egg-info/*
 /vendor/
+/node_modules/
 
 # IDE Files
 #-------------------------
 /nbproject/
 .idea/*
-
+/phinx.yml
 ## Sublime Text cache files
 *.tmlanguage.cache
 *.tmPreferences.cache
 *.stTheme.cache
 *.sublime-workspace
 *.sublime-project
+/node_modules/

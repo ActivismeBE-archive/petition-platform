@@ -3,10 +3,19 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * Comment Model.
+ *
+ * @author    Tim Joosten   <Topairy@gmail.com>
+ * @copyright Activisme-BE  <info@activisme.be>
+ * @license:  MIT license
+ * @since     2017
+ * @package   Petitions
+ */
 class Comment extends Model
 {
     use SoftDeletes;
-    
+
     /**
      * The database table name.
      *
@@ -22,11 +31,11 @@ class Comment extends Model
     protected $fillable = ['comment'];
 
     /**
-     * Get all the comments on a petition. 
+     * Get all the comments on a petition.
      *
      * @return belongsToMany data collection.
      */
-    public function petitions() 
+    public function petitions()
     {
         return $this->belongsToMany('Petitions', 'comments_petitions', 'comment_id', 'manifest_id')
             ->withPivot('author_id')
@@ -34,11 +43,11 @@ class Comment extends Model
     }
 
     /**
-     * Get the comments for updates. 
+     * Get the comments for updates.
      *
-     * @return belongsToMany data relation 
+     * @return belongsToMany data relation
      */
-    public function updates() 
+    public function updates()
     {
         return $this->belongsToMany('', '', '', '')
             ->withPivot('author_id')
@@ -48,9 +57,9 @@ class Comment extends Model
     /**
      *
      *
-     * @return belongsToMany data collection. 
+     * @return belongsToMany data collection.
      */
-    public function support() 
+    public function support()
     {
         return $this->belongsToMany('', '', '', '')
             ->withPivot('author_id')

@@ -92,7 +92,7 @@
                                 </label>
 
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" name="" value="" placeholder="Jouw adres">
+                                    <input type="text" class="form-control" name="address" value="" placeholder="Jouw adres">
                                 </div>
                             </div>
 
@@ -118,7 +118,7 @@
                                 </label>
 
                                 <div class="col-md-6">
-                                    <select name="" class="form-control">
+                                    <select name="country" class="form-control">
                                         <option value=""> -- Selecteer je land -- </option>
 
                                         @foreach ($countries as $country)

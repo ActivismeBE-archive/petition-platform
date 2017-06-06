@@ -43,14 +43,14 @@ class Account extends MY_Controller
      */
     protected function middleware()
     {
-        return ['auth']; // TODO: Build up the auth middleware. 
+        return ['auth']; // TODO: Build up the auth middleware.
     }
 
     /**
      * Get the index page for the account configuration console.
      *
      * @see:url('GET|HEAD', 'http://www.petities.activisme.be/account')
-     * @return Blade view.
+     * @return string
      */
     public function index()
     {
@@ -66,12 +66,12 @@ class Account extends MY_Controller
      * Update the account settings.
      *
      * @see:url('POST', 'http://www.petities.activisme.be/account/settings')
-     * @return Redirect | Blade view
+     * @return string | void
      */
     public function update()
     {
-        // TODO: Implement the missing database columns. 
-        // TODO: Implement the validation errors in the view.  
+        // TODO: Implement the missing database columns.
+        // TODO: Implement the validation errors in the view.
 
         $this->form_validation->set_rules('username', 'username', 'trim|required');
         $this->form_validation->set_rules('name', 'name', 'trim|required|is_unique[users.username]');
@@ -90,11 +90,16 @@ class Account extends MY_Controller
         }
 
         // No validation errors found. So move on with the logic.
-        $input
         $input['birth_date']     = $this->input->post('day') . '/' . $this->input->post('month') . '/' . $this->input->post('year');
+        $input['username']       = $this->input->post('username');
+        $input['name']           = $this->input->post('name');
+        $input['email']          = $this->input->post('email');
+        $input['address']        = $this->input->post('address');
+        $input['city']           = $this->input->post('city');
+        $input['country']        = $this->input->post('country');
 
-        if (Authencate::find($this->usser['id'])->update($this->security->xss_clean($input))) { // The user has been updated. 
-            // TODO: Refresh the session. 
+        if (Authencate::find($this->usser['id'])->update($this->security->xss_clean($input))) { // The user has been updated.
+            // TODO: Refresh the session.
 
             $this->session->set_flashdata('class', 'alert alert-success');
             $this->session->set_flashdata('message', 'Uw instellingen zijn gewijzigd.');
@@ -107,11 +112,11 @@ class Account extends MY_Controller
      * Delete some account out the system.
      *
      * @see:url('GET|HEAD', 'http://www.petities.activisme.be/account/delete/{id}')
-     * @return Redirect|Response
+     * @return void
      */
     public function delete()
     {
-        $acountId = $this->security->xss_clean($this->uri->segment(3));
+        $accountId = $this->security->xss_clean($this->uri->segment(3));
 
         if ((int) $accountId === $this->user['id']) { // User check before the delete.
             if (Authencate::find($accountId)->delete()) { // User account is deleted.

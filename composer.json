@@ -33,5 +33,13 @@
             "application/models",
             "application/libraries"
         ]
+    },
+    "scripts": {
+        "post-root-package-install": [
+            "php -r \"file_exists('phinx.yml') || copy('phinx.yml.example', 'phinx.yml');\""
+        ],
+        "post-install-cmd": [
+            "php -r \"file_exists('phinx.yml') || copy('phinx.yml.example', 'phinx.yml');\""
+        ]
     }
 }
