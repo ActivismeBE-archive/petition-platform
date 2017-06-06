@@ -147,7 +147,7 @@ class Manifest extends MY_Controller
         $this->session->set_flashdata('class', 'alert alert-danger');
         $this->session->set_flashdata('message', 'Wij konden de petitie niet aanmeken');
 
-        return redirect($_SERVER['HTTP_REFERER']);
+        return $this->blade->render('petitions/create');
 	}
 
     /**

@@ -23,7 +23,7 @@ class Report extends MY_Controller
     public function index()
     {
         $data['title']          = 'Rapporteringen';
-        $data['reportComments'] = ;
+        $data['reportComments'] = '';
         $data['reportUpdates']  = '';
 
         return $this->blade->render('reports/comments', $data);
