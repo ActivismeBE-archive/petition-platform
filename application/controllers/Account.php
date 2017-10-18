@@ -43,14 +43,14 @@ class Account extends MY_Controller
      */
     protected function middleware()
     {
-        return [];
+        return ['auth']; // TODO: Build up the auth middleware.
     }
 
     /**
      * Get the index page for the account configuration console.
      *
      * @see:url('GET|HEAD', 'http://www.petities.activisme.be/account')
-     * @return Blade view.
+     * @return string
      */
     public function index()
     {
@@ -66,10 +66,13 @@ class Account extends MY_Controller
      * Update the account settings.
      *
      * @see:url('POST', 'http://www.petities.activisme.be/account/settings')
-     * @return Redirect | Blade view
+     * @return string | void
      */
     public function update()
     {
+        // TODO: Implement the missing database columns.
+        // TODO: Implement the validation errors in the view.
+
         $this->form_validation->set_rules('username', 'username', 'trim|required');
         $this->form_validation->set_rules('name', 'name', 'trim|required|is_unique[users.username]');
         $this->form_validation->set_rules('email', 'password', 'trim|required|is_unique[users.email]');
@@ -83,17 +86,23 @@ class Account extends MY_Controller
             $data['countries'] = Countries::all();
             $data['title']     = $data['user']->name;
 
-            return $this->blade->render('', $data);
+            return $this->blade->render('auth/settings', $data);
         }
 
         // No validation errors found. So move on with the logic.
-        $data['birth_date']     = $this->input->post('birth_date');
-        $data['birth_place']    = $this->input->post('birth_place');
-        $data['resident_city']  = $this->input->post('resident_city');
+        $input['birth_date']     = $this->input->post('day') . '/' . $this->input->post('month') . '/' . $this->input->post('year');
+        $input['username']       = $this->input->post('username');
+        $input['name']           = $this->input->post('name');
+        $input['email']          = $this->input->post('email');
+        $input['address']        = $this->input->post('address');
+        $input['city']           = $this->input->post('city');
+        $input['country']        = $this->input->post('country');
 
-        if (Authencate::find($this->usser['id'])->update($this->security->xss_clean($input))) {
+        if (Authencate::find($this->usser['id'])->update($this->security->xss_clean($input))) { // The user has been updated.
+            // TODO: Refresh the session.
+
             $this->session->set_flashdata('class', 'alert alert-success');
-            $this->session->set_flashdata('message', 'Uw instelling zijn gewijzigd.');
+            $this->session->set_flashdata('message', 'Uw instellingen zijn gewijzigd.');
         }
 
         return redirect($_SERVER['HTTP_REFERER']);
@@ -103,11 +112,11 @@ class Account extends MY_Controller
      * Delete some account out the system.
      *
      * @see:url('GET|HEAD', 'http://www.petities.activisme.be/account/delete/{id}')
-     * @return redirect
+     * @return void
      */
     public function delete()
     {
-        $acountId = $this->security->xss_clean($this->uri->segment(3));
+        $accountId = $this->security->xss_clean($this->uri->segment(3));
 
         if ((int) $accountId === $this->user['id']) { // User check before the delete.
             if (Authencate::find($accountId)->delete()) { // User account is deleted.

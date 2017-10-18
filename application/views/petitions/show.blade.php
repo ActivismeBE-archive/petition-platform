@@ -13,19 +13,29 @@
 
     <div class="row row-padding">
         <div class="col-md-9">
-            <div class="panel panel-default">
+            <div class="panel panel-default"> {{-- Petition panel --}}
                 <div class="panel-body">
                     {{-- Petition manifest --}}
                         <div style="margin-top: -20px;" class="page-header">
                             <div class="pull-right">
                                 <div class="dropdown">
+                                    @if ($petition->creator_id === $this->user['id'] || in_array('Admin', $this->permissions))
+                                        <a href="{{ site_url('manifest/delete/' . $petition->id) }}" class="btn btn-sm btn-danger">
+                                            <span class="fa fa-close" aria-hidden="true"></span> Verwijderen
+                                        </a>
+                                    @endif
+
                                     <button class='btn btn-sm btn-info dropdown-toggle' data-toggle="dropdown" type="button">
                                         <span class="fa fa-info-circle" aria-hidden="true"></span> Informatie <span class="caret"></span>
                                     </button>
 
                                     <ul class="dropdown-menu">
                                         @if ($petition->creator_id === $this->user['id'])
-                                            <li><a href="#" data-toggle="modal" data-target="#update"><span class="fa fa-plus" aria-hidden="true"></span> Schrijf een update</a></li>
+                                            <li>
+                                                <a onclick="getDataById('{{ base_url('manifest/getById/' . $petition->id) }}', 'update')" >
+                                                    <span class="fa fa-plus" aria-hidden="true"></span> Schrijf een update
+                                                </a>
+                                            </li>
                                         @endif
 
                                         <li><a href="{{ base_url() }}"><span class="fa fa-info-circle" aria-hidden="true"></span> Updates</a></li>
@@ -44,7 +54,27 @@
                         {{ $petition->description }}
                     {{-- /Petition manifest --}}
                 </div>
-            </div>
+            </div> {{-- /petition panel --}}
+
+                @if ((int) count($petition->updates) > 0)
+                    <div class="panel panel-info"> {{-- Petition updates --}}
+                    <div class="panel-heading">Laatste updates: <a href="" class="pull-right label label-primary">Alle updates</a></div>
+
+                    <div class="panel-body">
+                        <div class="row">
+                            @foreach ($petition->updates() as $update)
+                                <div class="col-md-4">
+                                    <a href="" style="text-decoration: none;" class="thumbnail">
+                                        <div class="caption">
+                                            <p>{{ $update->description }} </p>
+                                        </div>
+                                    </a>
+                                </div>
+                            @endforeach
+                        </div><!--/row-->
+                    </div>
+                </div> {{-- /Petition updates --}}
+                @endif
 
 			<hr>
 

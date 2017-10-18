@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Petitions extends Model
 {
-    use SoftDeletes;
+    // use SoftDeletes;
 
     /**
      * Database table
@@ -47,7 +47,7 @@ class Petitions extends Model
      */
     public function signatures()
     {
-        return $this->belongsToMany('Signature', 'petition_signatures', 'petition_id', 'signature_id')
+        return $this->belongsToMany(Signature::class, 'petition_signatures', 'petition_id', 'signature_id')
             ->withTimestamps();
     }
 
@@ -58,8 +58,7 @@ class Petitions extends Model
      */
     public function updates()
     {
-        return $this->belongsToMany('Updates', 'petition_updates', 'petition_id', 'signature_id')
-            ->withTimestamps();
+        return $this->belongsToMany(PetitionUpdates::class, 'petition_updates', 'petition_id', 'update_id');
     }
 
     /**
@@ -69,7 +68,7 @@ class Petitions extends Model
      */
     public function comments()
     {
-        return $this->belongsToMany('Comment', 'comments_petitions', 'manifest_id', 'comment_id')
+        return $this->belongsToMany(Comment::class, 'comments_petitions', 'manifest_id', 'comment_id')
             ->withPivot('author_id')
             ->withTimestamps();
     }

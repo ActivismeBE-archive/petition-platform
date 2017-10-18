@@ -77,7 +77,7 @@ class Auth extends MY_Controller
      */
 	public function check_database($password)
 	{
-        // BUG: MD5 is insecure. Replace it with a better hashing.
+        // FIXME: MD5 is insecure. Replace it with a better hashing.
 
         $input['email'] = $this->security->xss_clean($this->input->post('email'));
         $MySQL['user']  = Authencate::where('email', $input['email'])
@@ -142,7 +142,7 @@ class Auth extends MY_Controller
     public function store()
     {
         // BUG: MD5 is insecure. Replace it with a better hashing.
-        
+
         $this->form_validation->set_rules('username', 'username', 'trim|required');
         $this->form_validation->set_rules('name', 'name', 'trim|required|is_unique[users.username]');
         $this->form_validation->set_rules('password', 'password', 'trim|required');
@@ -150,10 +150,9 @@ class Auth extends MY_Controller
         $this->form_validation->set_rules('password_confirmation', 'Password Confirmation', 'required|matches[password]');
 
         if ($this->form_validation->run() == false) {
-            $this->session->set_flashdata('class', 'alert alert-danger');
-            $this->session->set_flashdata('message', 'Wij konden de gebruiker niet aanmaken wegens validatie fouten.');
-
-            return redirect($_SERVER['HTTP_REFERER']);
+            $data['title'] = 'Registratie';
+            
+            return $this->blade->render('auth/register', $data);
         }
 
         // No errors so move on with the logic.

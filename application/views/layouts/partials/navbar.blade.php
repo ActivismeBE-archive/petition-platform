@@ -54,7 +54,7 @@
                             </a>
 
                             <ul class="dropdown-menu">
-                                <li><a href=""><span class="fa fa-wrench" aria-hidden="true"></span> Account configuratie</a></li>
+                                <li><a href="{{ base_url('account') }}"><span class="fa fa-wrench" aria-hidden="true"></span> Account configuratie</a></li>
 
                                 @if (in_array('Admin', $this->permissions))
                                     <li><a href="{{ base_url('users') }}"><span class="fa fa-users" aria-hidden="true"></span> Loginbeheer</a></li>

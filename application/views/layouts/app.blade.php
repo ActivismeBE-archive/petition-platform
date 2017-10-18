@@ -80,6 +80,7 @@
                                 <a class="icon icon-skype" href=""><i class="fa fa-skype"></i></a>
                                 <a class="icon icon-phone" href=""><i class="fa fa-phone"></i></a>
                                 <a class="icon icon-envelop" href=""><i class="fa fa-envelope"></i></a>
+                                <a class="icon icon-github" href=""><i class="fa fa-github"></i></a>
                             </div>
                         </div>
                     </div>

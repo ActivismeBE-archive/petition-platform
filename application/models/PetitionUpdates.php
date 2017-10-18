@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Cities Model.
+ * Update Model.
  *
  * @author    Tim Joosten   <Topairy@gmail.com>
  * @copyright Activisme-BE  <info@activisme.be>
@@ -12,28 +12,31 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @since     2017
  * @package   Petitions
  */
-class Cities extends Model
+class PetitionUpdates extends Model
 {
     use SoftDeletes;
 
     /**
-     * The primary key for the database.
+     * The database table name.
      *
      * @return string
      */
-    protected $primaryKey = 'id';
+    protected $table = 'petition_update';
 
     /**
-     * The database table field.
-     *
-     * @return string
-     */
-    protected $table = 'cities';
-
-    /**
-     * Mass-assign database fields.
+     * Mass assign fields for the database.
      *
      * @return array
      */
-    protected $fillable = ['city_name', 'lat_num', 'lng_num', 'province_id', 'postal_code'];
+    protected $fillable = ['author_id', 'title', 'description'];
+
+    /**
+     * Get the creator for the update.
+     *
+     * @return belongsTo instances
+     */
+    public function author()
+    {
+        return $this->belongsTo('Authencate', 'author_id');
+    }
 }

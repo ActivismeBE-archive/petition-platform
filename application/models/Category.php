@@ -3,6 +3,15 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * Category Model.
+ *
+ * @author    Tim Joosten   <Topairy@gmail.com>
+ * @copyright Activisme-BE  <info@activisme.be>
+ * @license:  MIT license
+ * @since     2017
+ * @package   Petitions
+ */
 class Category extends Model
 {
     use SoftDeletes;
@@ -24,7 +33,7 @@ class Category extends Model
     /**
      * Get the support items form the category.
      *
-     * @return belongsToMany rezlationship.
+     * @return belongsToMany relationship.
      */
     public function support()
     {

@@ -11,54 +11,33 @@
  */
 class MY_Controller extends CI_Controller
 {
-    /**
-     * Middlewares variable declaration.
-     *
-     * @var array
-     */
     protected $middlewares = [];
 
-    /**
-     * MY_Controller constructor.
-     *
-     * @return int|void|null
-     */
     public function __construct()
     {
         parent::__construct();
         $this->_run_middlewares();
     }
 
-    /**
-     * The middleware assignment.
-     *
-     * @return array.
-     */
     protected function middleware()
     {
-        return [];
+        return array();
     }
 
-    /**
-     * Middleware implementation logic.
-     *
-     * @return int|void|null
-     */
-    public function _run_middlewares()
+    protected function _run_middlewares()
     {
         $this->load->helper('inflector');
         $middlewares = $this->middleware();
-
+        
         foreach ($middlewares as $middleware) {
             $middlewareArray = explode('|', str_replace(' ', '', $middleware));
             $middlewareName  = $middlewareArray[0];
             $runMiddleware   = true;
-
             if (isset($middlewareArray[1])) {
                 $options = explode(':', $middlewareArray[1]);
                 $type    = $options[0];
                 $methods = explode(',', $options[1]);
-
+                
                 if ($type == 'except') {
                     if (in_array($this->router->method, $methods)) {
                         $runMiddleware = false;
@@ -73,14 +52,11 @@ class MY_Controller extends CI_Controller
             $filename = ucfirst(camelize($middlewareName)) . 'Middleware';
 
             if ($runMiddleware == true) {
-                if (file_exists(APPATH . 'middlewares/' . $filename . '.php')) {
-                    require APPATH . 'middlewares/' . $filename . '.php';
-
-                    $ci = &get_instance();
-
+                if (file_exists(APPPATH . 'middlewares/' . $filename . '.php')) {
+                    require APPPATH . 'middlewares/' . $filename . '.php';
+                    $ci     = &get_instance();
                     $object = new $filename($this, $ci);
                     $object->run();
-
                     $this->middlewares[$middlewareName] = $object;
                 } else {
                     if (ENVIRONMENT == 'development') {

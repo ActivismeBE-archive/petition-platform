@@ -46,7 +46,7 @@ class Users extends MY_Controller
     {
         // TODO: Implement middleware. 
 
-        return [];
+        return ['auth', 'admin'];
     }
 
     /**

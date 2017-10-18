@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Cities Model.
+ * Reports Model.
  *
  * @author    Tim Joosten   <Topairy@gmail.com>
  * @copyright Activisme-BE  <info@activisme.be>
@@ -12,28 +12,28 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @since     2017
  * @package   Petitions
  */
-class Cities extends Model
+class Reports extends Model
 {
-    use SoftDeletes;
-
     /**
-     * The primary key for the database.
+     * The database table for the database and model.
      *
      * @return string
      */
-    protected $primaryKey = 'id';
+    protected $table = 'petition_reports';
 
     /**
-     * The database table field.
-     *
-     * @return string
-     */
-    protected $table = 'cities';
-
-    /**
-     * Mass-assign database fields.
+     * Mass-assign fields for the database.
      *
      * @return array
      */
-    protected $fillable = ['city_name', 'lat_num', 'lng_num', 'province_id', 'postal_code'];
+    protected $fillable = [];
+
+    /**
+     *
+     *
+     */
+    public function comment()
+    {
+        return $this->belongsToMany(Comments::class, 'petition_reports_pivot')->withTimestamps();
+    }
 }
